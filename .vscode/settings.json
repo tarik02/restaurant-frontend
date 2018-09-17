@@ -1,0 +1,9 @@
+{
+	"eslint.enable": true,
+	"prettier.singleQuote": true,
+	"prettier.semi": false,
+	"prettier.useTabs": false,
+	"prettier.tabWidth": 2,
+	"editor.useTabStops": false,
+	"editor.tabSize": 2
+}

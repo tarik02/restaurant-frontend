@@ -1,0 +1,42 @@
+{
+  "name": "restaurant",
+  "version": "1.0.0",
+  "description": "Young informatics 2018",
+  "author": "Tarik02 <Taras.Fomin@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "@nuxtjs/pwa": "^2.5.0",
+    "@nuxtjs/toast": "^3.0.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "nuxt": "^1.0.0",
+    "vue-google-autocomplete": "^1.1.0",
+    "vue-googlemaps": "^0.1.1",
+    "vue-moment": "^4.0.0",
+    "vuetify": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.116",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.7.1",
+    "prettier-eslint": "^8.8.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1"
+  }
+}
