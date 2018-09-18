@@ -42,9 +42,17 @@ module.exports = {
         nativeUI: true,
         theme_color: '#F5F5F5',
       },
+
       manifest: {
         name: 'Ресторан',
         lang: 'ua',
+      },
+
+      workbox: {
+        runtimeCaching: {
+          urlPattern: env.UPLOADS_URL + '.*',
+          handler: 'cacheFirst',
+        },
       },
     }],
   ],
