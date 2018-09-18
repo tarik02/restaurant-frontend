@@ -27,9 +27,9 @@ module.exports = {
 
   modules: [
     ['@nuxtjs/axios', {
-      https: env.API_HTTPS,
+      https: env.API_HTTPS === 'true',
       host: env.API_HOST,
-      port: env.API_PORT,
+      port: parseInt(env.API_PORT),
       prefix: env.API_PREFIX,
     }],
 
