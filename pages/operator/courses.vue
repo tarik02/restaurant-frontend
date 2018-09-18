@@ -12,10 +12,10 @@
             <v-spacer />
 
             <v-btn color="primary" dark @click="editCourse(course)">
-              <v-icon left>edit</v-icon>Редагувати
+              Редагувати
             </v-btn>
             <v-btn color="red" dark @click="deleteCourse(course)">
-              <v-icon left>delete</v-icon>Видалити
+              Видалити
             </v-btn>
           </template>
         </course>
