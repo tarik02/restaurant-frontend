@@ -12,8 +12,8 @@ export const mutations = {
 		state.target = { address, coordinates }
 	},
 
-	setInfo: (state, { name, phone, notes }) => {
-		state.info = { name, phone, notes }
+	setInfo: (state, { name, phone, notes, price }) => {
+		state.info = { name, phone, notes, price }
 	},
 
 	setCart: (state, cart) => {
