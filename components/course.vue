@@ -52,7 +52,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import image from '~/assets/menu/potato-fri.jpg'
 
 export default {
   props: {

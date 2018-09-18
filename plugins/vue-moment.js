@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueMoment from 'vue-moment'
+import VueMoment from 'vue-moment/vue-moment'
 
-import moment from 'moment'
 import 'moment/locale/uk'
+import moment from 'moment'
 
 Vue.use(VueMoment, {
 	moment,

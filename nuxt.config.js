@@ -1,7 +1,15 @@
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const { IgnorePlugin } = require('webpack')
+
+const nodeExternals = require('webpack-node-externals')
+const resolve = (dir) => require('path').join(__dirname, dir)
+
 const dotenv = require('dotenv')
 const env = dotenv.config().parsed
 
 module.exports = {
+  watch: ['.env'],
+
   env,
 
   mode: 'spa',
@@ -76,7 +84,21 @@ module.exports = {
   loading: { color: '#3B8070' },
   
   build: {
+    babel: {
+      plugins: [
+        ['transform-imports', {
+          'vuetify': {
+            'transform': 'vuetify/es5/components/${member}',
+            'preventFullImport': true,
+          },
+        }],
+      ],
+    },
+
     vendor: [
+      '~/plugins/google-maps.js',
+      '~/plugins/google-places-autocomplete.js',
+      '~/plugins/vue-moment.js',
       '~/plugins/vuetify.js',
     ],
 
@@ -91,6 +113,22 @@ module.exports = {
           exclude: /(node_modules)/,
         })
       }
+
+      if (ctx.isServer) {
+        config.externals = [
+          nodeExternals({
+            whitelist: [/^vuetify/],
+          }),
+        ]
+      }
+
+      if (env.DEV_BUNDLE_ANALYZER === 'true') {
+        config.plugins.push(new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+        }))
+      }
+
+      config.plugins.push(new IgnorePlugin(/^\.\/locale$/, /moment$/))
     },
   },
 }

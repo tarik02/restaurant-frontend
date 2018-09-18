@@ -1,10 +1,65 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
+import {
+  Vuetify,
+  VApp,
+  VCard,
+  VCarousel,
+  VCheckbox,
+  VDialog,
+  VDivider,
+  VNavigationDrawer,
+  VFooter,
+  VList,
+  VBtn,
+  VIcon,
+  VGrid,
+  VTextField,
+  VToolbar,
+  VSubheader,
+  VForm,
+  VDataTable,
+  VSelect,
+  VHover,
+  VImg,
+  VTextarea,
+  VProgressCircular,
+  VProgressLinear,
+
+  transitions,
+} from 'vuetify'
 import uk from 'vuetify/es5/locale/uk'
 
 Vue.use(Vuetify, {
-	lang: {
-		locales: { uk },
-		current: 'uk',
-	},
+  components: {
+    VApp,
+    VCard,
+    VCarousel,
+    VCheckbox,
+    VDialog,
+    VDivider,
+    VNavigationDrawer,
+    VFooter,
+    VList,
+    VBtn,
+    VIcon,
+    VGrid,
+    VTextField,
+    VToolbar,
+    VSubheader,
+    VForm,
+    VDataTable,
+    VSelect,
+    VHover,
+    VImg,
+    VTextarea,
+    VProgressCircular,
+    VProgressLinear,
+
+    transitions,
+  },
+
+  lang: {
+    locales: { uk },
+    current: 'uk',
+  },
 })
