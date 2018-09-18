@@ -41,7 +41,11 @@ export const actions = {
   async updateIngredients({ commit }) {
     commit('setIngredients')
 
-    const { data: ingredients } = await this.$axios.$get('/operator/ingredients')
+    const { data: ingredients } = await this.$axios.$get('/operator/ingredients', {
+      params: {
+        all: true,
+      },
+    })
     commit('setIngredients', { ingredients })
   },
 

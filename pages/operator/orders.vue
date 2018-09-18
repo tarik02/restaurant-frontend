@@ -79,7 +79,7 @@ export default {
     },
   },
 
-  async mounted() {
+  mounted() {
     this.$store.commit('setTitle', 'Замовлення')
   },
 

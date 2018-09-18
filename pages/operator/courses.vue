@@ -38,6 +38,7 @@
         <v-card-title>
           <span class="headline">Страва</span>
         </v-card-title>
+
         <v-card-text>
           <v-form ref="formCourse" v-model="validCourse" lazy-validation>
             <v-text-field
@@ -90,6 +91,7 @@
             />
           </v-form>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer />
 
@@ -142,7 +144,7 @@
     <v-dialog v-model="dialogRemove" persistent max-width="500">
       <v-card>
         <v-card-title>
-          <span class="headline">Видалення</span>
+          <span class="headline">Видалення страви</span>
         </v-card-title>
 
         <v-card-text>
@@ -314,13 +316,18 @@ export default {
       try {
         this.$toast.show('Збереження...')
 
-        await this.$axios.post('/operator/courses', data)
+        const result = await this.$axios.$post('/operator/courses', data)
+        if (result.status !== 'ok') {
+          throw new Error('Status is not ok')
+        }
 
         this.dialogCourse = false
         this.$toast.success('Збережено')
 
         this.$store.dispatch('operator/updateCourses')
       } catch (e) {
+        console.error(e)
+
         this.$toast.error('Помилка під час збереження')
       }
     },
@@ -357,9 +364,12 @@ export default {
         try {
           this.$toast.show('Видалення...')
 
-          await this.$axios.post('/operator/courses/remove', {
+          const result = await this.$axios.$post('/operator/courses/remove', {
             id: this.courseRemove.id,
           })
+          if (result.status !== 'ok') {
+            throw new Error('Status is not ok')
+          }
 
           this.dialogRemove = false
           this.$toast.success('Видалено')
