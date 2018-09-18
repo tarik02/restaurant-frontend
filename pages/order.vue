@@ -114,6 +114,7 @@ export default {
         name: this.name,
         phone: this.phone.toString(),
         notes: this.targetNotes,
+        price: this.price,
       })
 
       const cartData = this.$store.getters['menu/cartData']
@@ -131,9 +132,17 @@ export default {
         })
 
         this.$store.commit('menu/clearCart')
-        this.$toast.show('Замовлення відправлено на опрацювання')
+        this.$toast.success('Замовлення відправлено на опрацювання')
+      } else if (result.reason === 'change_count') {
+        this.$toast.error('Вибачте, але деякі товари з вашої корзини більше не продаються')
+
+        this.$router.push({ name: 'cart' })
+      } else if (result.reason === 'change_price') {
+        this.$toast.error('Вибачте, але деякі товари з вашої корзини змінили свою ціну')
+
+        this.$router.push({ name: 'cart' })
       } else {
-        this.$toast.show('Помилка відправлення')
+        this.$toast.error('Помилка відправлення')
       }
 
       return false

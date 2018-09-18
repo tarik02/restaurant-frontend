@@ -26,8 +26,7 @@ export const actions = {
     const request = { target, info, cart }
 
     try {
-      const response = await this.$axios.post('/order', request)
-      const { data } = response
+      const data = await this.$axios.$post('/order', request)
 
       if (data.status === 'ok') {
         return {
