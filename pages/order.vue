@@ -119,10 +119,9 @@ export default {
       const cartData = this.$store.getters['menu/cartData']
       this.$store.commit('order/setCart', cartData)
 
-      // TODO: loader
+      this.$toast.show('Замовлення...')
       const result = await this.$store.dispatch('order/order')
       if (result.status) {
-        // TODO: Take token and put it somewhere
         this.$router.push({
           name: 'watch-id-token',
           params: {
@@ -130,8 +129,11 @@ export default {
             token: result.token,
           },
         })
+
+        this.$store.commit('menu/clearCart')
+        this.$toast.show('Замовлення відправлено на опрацювання')
       } else {
-        // TODO:
+        this.$toast.show('Помилка відправлення')
       }
 
       return false

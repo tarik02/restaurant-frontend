@@ -44,6 +44,14 @@ export const mutations = {
       course.cartCount -= count
     }
   },
+
+  clearCart: state => {
+    state.courses = state.courses.map(course => {
+      course.cartCount = 0
+
+      return course
+    })
+  },
 }
 
 export const actions = {
