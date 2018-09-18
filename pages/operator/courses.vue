@@ -33,7 +33,7 @@
       </v-layout>
     </v-container>
 
-    <v-dialog v-model="dialogCourse" persistent>
+    <v-dialog v-model="dialogCourse" persistent scrollable>
       <v-card>
         <v-card-title>
           <span class="headline">Страва</span>
@@ -96,21 +96,22 @@
           <v-spacer />
 
           <v-btn flat @click="cancelCourse">
-            <v-icon left>close</v-icon>Скасувати
+            Скасувати
           </v-btn>
           
           <v-btn color="primary" @click="saveCourse">
-            <v-icon left>save</v-icon>Зберегти
+            Зберегти
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialogIngredients" persistent>
+    <v-dialog v-model="dialogIngredients" persistent scrollable>
       <v-card>
         <v-card-title>
           <span class="headline">Інгредієнти</span>
         </v-card-title>
+
         <v-card-text>
           <v-form ref="formIngredients" v-model="validIngredients" lazy-validation>
             <v-text-field
@@ -127,15 +128,16 @@
             />
           </v-form>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer />
 
           <v-btn flat @click="cancelIngredients">
-            <v-icon left>close</v-icon>Скасувати
+            Скасувати
           </v-btn>
 
           <v-btn color="primary" @click="saveIngredients">
-            <v-icon left>save</v-icon>Зберегти
+            Зберегти
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -155,11 +157,11 @@
           <v-spacer />
           
           <v-btn flat @click="dialogRemove = false">
-            <v-icon left>close</v-icon>Скасувати
+            Скасувати
           </v-btn>
 
           <v-btn color="red" dark @click="doDeleteCourse">
-            <v-icon left>delete</v-icon>Видалити
+            Видалити
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -182,7 +184,6 @@ export default {
   data: () => ({
     validCourse: true,
     dialogCourse: false,
-    // dialogCourse: true,
     editedIndex: 0,
     editedCourse: {
       title: '',

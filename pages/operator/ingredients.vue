@@ -90,11 +90,11 @@
           <v-spacer />
 
           <v-btn flat @click="editCancel">
-            <v-icon left>close</v-icon>Скасувати
+            Скасувати
           </v-btn>
           
           <v-btn color="primary" @click="editSave">
-            <v-icon left>save</v-icon>Зберегти
+            Зберегти
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -114,11 +114,11 @@
           <v-spacer />
           
           <v-btn flat @click="deleteDialog = false">
-            <v-icon left>close</v-icon>Скасувати
+            Скасувати
           </v-btn>
 
           <v-btn color="red" dark @click="deleteConfirm">
-            <v-icon left>delete</v-icon>Видалити
+            Видалити
           </v-btn>
         </v-card-actions>
       </v-card>
