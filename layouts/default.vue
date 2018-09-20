@@ -35,11 +35,11 @@
           <v-list-tile-content><v-list-tile-title>Корзина</v-list-tile-title></v-list-tile-content>
         </v-list-tile>
 
-        <v-subheader>Водій</v-subheader>
+        <!-- <v-subheader>Водій</v-subheader>
         <v-list-tile @click="alert('hello')">
           <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
           <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
 
         <v-divider />
 
@@ -56,7 +56,7 @@
           <v-list-tile-action><v-icon>restaurant_menu</v-icon></v-list-tile-action>
           <v-list-tile-content><v-list-tile-title>Інгредієнти</v-list-tile-title></v-list-tile-content>
         </v-list-tile>
-        <v-list-tile :to="{ name: 'operator-drivers' }">
+        <!-- <v-list-tile :to="{ name: 'operator-drivers' }">
           <v-list-tile-action><v-icon>directions_car</v-icon></v-list-tile-action>
           <v-list-tile-content><v-list-tile-title>Водії</v-list-tile-title></v-list-tile-content>
         </v-list-tile>
@@ -67,7 +67,7 @@
         <v-list-tile :to="{ name: 'operator-statistic' }">
           <v-list-tile-action><v-icon>table_chart</v-icon></v-list-tile-action>
           <v-list-tile-content><v-list-tile-title>Статистика</v-list-tile-title></v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
       </v-list>
     </v-navigation-drawer>
 

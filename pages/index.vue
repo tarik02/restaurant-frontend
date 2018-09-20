@@ -32,6 +32,10 @@ export default {
     logoImage,
   }),
 
+  fetch({ params, redirect }) {
+    redirect(301, '/menu')
+  },
+
   mounted() {
     this.$store.commit('setTitle', 'Головна')
   },
