@@ -5,5 +5,17 @@
 	"prettier.useTabs": false,
 	"prettier.tabWidth": 2,
 	"editor.useTabStops": false,
-	"editor.tabSize": 2
+	"editor.tabSize": 2,
+
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		
+		"**/.nuxt": true,
+		"**/dist": true,
+		"**/node_modules": true,
+	}
 }
