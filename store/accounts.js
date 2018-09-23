@@ -28,7 +28,15 @@ export const mutations = {
     Vue.set(state.accounts, id, {
       ...state.accounts[id],
       data,
+      updating: false,
+      lastDataUpdate: moment().unix(),
     })
+  },
+
+  setUpdating: (state, id) => {
+    if (state.accounts[id]) {
+      state.accounts[id].updating = true
+    }
   },
 
   setCurrent: (state, id) => {
@@ -40,6 +48,21 @@ export const actions = {
   async init({ commit, state }) {
     _(state.accounts)
       .map(async (account, id) => {
+        if (account.lastDataUpdate) {
+          const diff = moment.duration(
+            moment().diff(moment.unix(account.lastDataUpdate))
+          ).asSeconds()
+
+          if (!(
+             account.updating && diff > 2 * 60 ||
+            !account.updating && diff > 1 * 60
+          )) {
+            return null
+          }
+        }
+
+        commit('setUpdating', account.data.id)
+
         const {tokenType, accessToken} = account.auth
 
         return this.$axios.$get('/user', {
@@ -49,7 +72,13 @@ export const actions = {
         })
       })
       .forEach(async (response, id) => {
-        commit('setAccountData', await response)
+        response = await response
+
+        if (response === null) {
+          return
+        }
+
+        commit('setAccountData', response)
       })
   },
 
