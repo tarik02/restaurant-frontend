@@ -77,6 +77,8 @@
 import AddressAutocomplete from '~/components/AddressAutocomplete'
 import debounce from 'lodash.debounce'
 
+const ADDRESS_UNKNOWN = 'Невідома адреса'
+
 export default {
   components: {
     AddressAutocomplete,
@@ -164,20 +166,18 @@ export default {
       // idk wtf is this...
       const { lat, lng } = this.convertTarget(newTarget)
 
-      // TODO: find place name
-
       this.geocoder.geocode({
         location: { lat, lng },
       }, (results, status) => {
         if (status === 'OK' || status == 'ZERO_RESULTS') {
           if (results.length === 0) {
-            this.$refs.autocomplete.update('Невідома адреса')
+            this.$refs.autocomplete.update(ADDRESS_UNKNOWN)
           } else {
             const [ result ] = results
             this.$refs.autocomplete.update(result.formatted_address)
           }
         } else {
-          this.$refs.autocomplete.update('Невідома адреса')
+          this.$refs.autocomplete.update(ADDRESS_UNKNOWN)
         }
 
         this.movingMarker = false
@@ -197,8 +197,6 @@ export default {
     },
 
     setOrderTarget() {
-      const unkAddress = 'Невідома адреса'
-
       if (!this.target || !this.target.lat || !this.target.lng) {
         return false
       }
@@ -206,7 +204,7 @@ export default {
       const address = this.$refs.autocomplete.$data.autocompleteText
 
       this.$store.commit('order/setTarget', {
-        address: address === unkAddress ? null : address,
+        address: address === ADDRESS_UNKNOWN ? null : address,
         coordinates: this.convertTarget(this.target),
       })
     },
