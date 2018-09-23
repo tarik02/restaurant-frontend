@@ -21,7 +21,9 @@
     "vue-google-autocomplete": "^1.1.0",
     "vue-googlemaps": "^0.1.1",
     "vue-moment": "^4.0.0",
-    "vuetify": "^1.0.0"
+    "vuetify": "^1.0.0",
+    "vuex-persistedstate": "^2.5.4",
+    "vuex-shared-mutations": "^0.0.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.116",

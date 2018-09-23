@@ -75,6 +75,9 @@ module.exports = {
     '~/plugins/order-status.js',
     '~/plugins/currency.js',
     '~/plugins/uploaded.js',
+
+    '~/plugins/axios.js',
+    { src: '~/plugins/persisted-state.js', ssr: false },
   ],
 
   css: [

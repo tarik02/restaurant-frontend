@@ -24,6 +24,8 @@ import {
   VTextarea,
   VProgressCircular,
   VProgressLinear,
+  VAvatar,
+  VTooltip,
 
   transitions,
 } from 'vuetify'
@@ -54,6 +56,8 @@ Vue.use(Vuetify, {
     VTextarea,
     VProgressCircular,
     VProgressLinear,
+    VAvatar,
+    VTooltip,
 
     transitions,
   },
