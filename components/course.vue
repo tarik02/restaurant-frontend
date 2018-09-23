@@ -33,14 +33,16 @@
           <v-spacer />
 
           <transition name="fade" mode="out-in">
-            <div v-if="course.cartCount === 0" key="a">
+            <div v-if="cartCountOf(course.id) === 0" key="a">
               <v-btn color="primary" @click="addToCart(course)">Додати до корзини</v-btn>
             </div>
             <div v-else key="b">
-              <span class="title ml-2 grey--text mr-2">{{ course.price * course.cartCount / 100 }}₴</span>
+              <span class="title ml-2 grey--text mr-2">
+                {{ (cartCountOf(course.id) * course.price) | currency }}
+              </span>
 
               <v-btn icon @click="removeFromCart(course)"><v-icon>remove</v-icon></v-btn>
-              <v-btn icon flat disabled>{{ course.cartCount }}</v-btn>
+              <v-btn icon flat disabled>{{ cartCountOf(course.id) }}</v-btn>
               <v-btn icon @click="addToCart(course)"><v-icon>add</v-icon></v-btn>
             </div>
           </transition>
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -60,15 +62,21 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    ...mapGetters({
+      cartCountOf: 'cart/countOf',
+    }),
+  },
   
   methods: {
     ...mapMutations({
-      mutationRemoveCart: 'menu/removeCart',
-      mutationAddCart: 'menu/addCart',
+      mutationRemoveCart: 'cart/remove',
+      mutationAddCart: 'cart/add',
     }),
 
     removeFromCart(course) {
-      this.mutationRemoveCart({ course })
+      this.mutationRemoveCart({ id: course.id })
 
       this.$toast.success('Видалено з корзини', {
         duration: 1500,
@@ -76,7 +84,7 @@ export default {
     },
 
     addToCart(course) {
-      this.mutationAddCart({ course })
+      this.mutationAddCart({ id: course.id })
 
       this.$toast.success('Додано у корзину', {
         duration: 1500,

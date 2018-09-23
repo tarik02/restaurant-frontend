@@ -239,7 +239,7 @@ export default {
       account: 'accounts/current',
       secondaryAccounts: 'accounts/secondaries',
 
-      cartSize: 'menu/cartSize',
+      cartSize: 'cart/size',
     }),
   },
 

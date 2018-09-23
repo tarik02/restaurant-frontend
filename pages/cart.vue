@@ -46,7 +46,7 @@ export default {
   computed: {
     ...mapGetters({
       courses: 'menu/cartCourses',
-      price: 'menu/totalPrice',
+      price: 'cart/totalPrice',
     }),
   },
 

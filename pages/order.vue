@@ -88,7 +88,7 @@ export default {
     }),
 
     ...mapGetters({
-      price: 'menu/totalPrice',
+      price: 'cart/totalPrice',
     }),
 
     ...mapGetters({
@@ -139,7 +139,7 @@ export default {
         price: this.price,
       })
 
-      const cartData = this.$store.getters['menu/cartData']
+      const cartData = this.$store.getters['cart/data']
       this.$store.commit('order/setCart', cartData)
 
       this.$toast.show('Замовлення...')
@@ -153,7 +153,7 @@ export default {
           },
         })
 
-        this.$store.commit('menu/clearCart')
+        this.$store.commit('cart/clear')
         this.$toast.success('Замовлення відправлено на опрацювання')
       } else if (result.reason === 'change_count') {
         this.$toast.error('Вибачте, але деякі товари з вашої корзини більше не продаються')
