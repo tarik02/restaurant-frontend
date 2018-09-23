@@ -21,10 +21,7 @@
         />
 
         <v-text-field
-          v-model="email"
-          :rules="[
-            v => !v || /.+@.+/.test(v) || 'Номер телефону бути правильним',
-          ]"
+          v-model="phone"
           label="Номер телефону"
           required
         />
@@ -85,6 +82,7 @@ export default {
 
     username: '',
     email: '',
+    phone: '',
     password: '',
     passwordConfirm: '',
   }),
