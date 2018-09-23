@@ -67,6 +67,12 @@ export default {
           username: this.login,
           password: this.password,
         })
+
+        this.$router.push({
+          name: 'menu',
+        })
+
+        this.$toast.success('Обліковий запис додано')
       } catch (e) {
         console.error(e)
 

@@ -17,7 +17,6 @@
           :counter="12"
           prepend-icon="local_phone"
           label="Телефон"
-          mask="+38 (###) ### - ####"
           required
         />
         
@@ -61,8 +60,9 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import nullifyString from '~/common/nullify-string'
 
-const PHONE_REGEX = /^\+?38\d{10}$/im
+const PHONE_REGEX = /^\+?[\d ]+$/im
 
 export default {
   data: () => ({
@@ -91,12 +91,34 @@ export default {
       price: 'menu/totalPrice',
     }),
 
+    ...mapGetters({
+      account: 'accounts/current',
+    }),
+
     formattedPrice() {
       return `${this.price / 100}₴`
     },
 
     targetPoint() {
       return this.target.address || 'Точка на карті'
+    },
+  },
+
+  watch: {
+    account: {
+      immediate: true,
+
+      handler(account) {
+        if (nullifyString(this.name) === null) {
+          this.name = account.data.username
+        }
+
+        if (nullifyString(
+          this.phone && this.phone.replace(/^\+?3?8?0?/, '')
+        ) === null && account.data.phone) {
+          this.phone = account.data.phone
+        }
+      },
     },
   },
 
