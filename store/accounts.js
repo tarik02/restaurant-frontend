@@ -90,7 +90,11 @@ export const actions = {
       password,
     }
 
-    const response = await this.$axios.$post('/auth/register', request)
+    const response = await this.$axios.$post('/auth/register', request, {
+      headers: {
+        'Authorization': null,
+      },
+    })
     if (response.status !== 'ok') {
       throw new Error(response.reason)
     }
