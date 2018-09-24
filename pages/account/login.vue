@@ -69,7 +69,7 @@ export default {
         })
 
         this.$router.push({
-          name: 'menu',
+          name: 'index',
         })
 
         this.$toast.success('Обліковий запис додано')

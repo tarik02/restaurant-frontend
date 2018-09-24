@@ -3,7 +3,7 @@ export default function ({ $axios, store }) {
     const account = store.getters['accounts/current']
     if (account !== null) {
       const {tokenType, accessToken} = account.auth
-      config.headers.common['Authorization'] = `${tokenType} ${accessToken}`
+      config.headers['Authorization'] = `${tokenType} ${accessToken}`
     }
 
     return config

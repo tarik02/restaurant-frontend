@@ -249,6 +249,10 @@ export default {
       this.accountMenu = false
 
       this.$store.commit('accounts/setCurrent', id)
+
+      this.$router.push({
+        name: 'index',
+      })
     },
 
     switchAccountMenu() {
