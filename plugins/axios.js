@@ -6,6 +6,8 @@ export default function ({ $axios, store }) {
       
       if (null !== config.headers['Authorization']) {
         config.headers['Authorization'] = `${tokenType} ${accessToken}`
+      } else {
+        delete config.headers['Authorization']
       }
     }
 
