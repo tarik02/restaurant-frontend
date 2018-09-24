@@ -4,13 +4,13 @@ export default function ({ $axios, store }) {
     if (account !== null) {
       const {tokenType, accessToken} = account.auth
 
-      console.log('before', config.url, { ...config.headers })
+      console.info('before', config.url, { ...config.headers })
       if (null === config.headers['Authorization']) {
         delete config.headers['Authorization']
       } else {
         config.headers['Authorization'] = `${tokenType} ${accessToken}`
       }
-      console.log('after', config.url, { ...config.headers })
+      console.info('after', config.url, { ...config.headers })
     }
 
     return config
