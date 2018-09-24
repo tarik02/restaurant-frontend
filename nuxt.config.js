@@ -19,7 +19,7 @@ module.exports = {
   },
 
   head: {
-    title: 'Restaurant',
+    title: 'Кафе',
 
     meta: [
       { charset: 'utf-8' },

@@ -229,6 +229,12 @@ export default {
     accountMenu: false,
   }),
 
+  head() {
+    return {
+      title: this.$store.state.title.common,
+    }
+  },
+
   computed: {
     ...mapState({
       shortTitle: state => state.title.short,
