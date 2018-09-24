@@ -99,10 +99,18 @@ module.exports = {
     },
 
     vendor: [
+      '~/plugins/vuetify.js',
+  
       '~/plugins/google-maps.js',
       '~/plugins/google-places-autocomplete.js',
+  
       '~/plugins/vue-moment.js',
-      '~/plugins/vuetify.js',
+      '~/plugins/order-status.js',
+      '~/plugins/currency.js',
+      '~/plugins/uploaded.js',
+  
+      '~/plugins/axios.js',
+      '~/plugins/persisted-state.js',
     ],
 
     extractCSS: true,
