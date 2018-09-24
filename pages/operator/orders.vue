@@ -24,7 +24,7 @@
       <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
         <td>{{ props.item.name }}</td>
-        <td>+{{ props.item.phone }}</td>
+        <td>{{ props.item.phone }}</td>
         <td>{{ props.item.price | currency }}</td>
         <td>{{ props.item.status | orderStatus }}</td>
         <td>{{ props.item.createdAt | moment('Do MMMM YYYY, H:mm:ss') }}</td>

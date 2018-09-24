@@ -109,6 +109,10 @@ export default {
       immediate: true,
 
       handler(account) {
+        if (account === null) {
+          return
+        }
+        
         if (nullifyString(this.name) === null) {
           this.name = account.data.username
         }
