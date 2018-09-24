@@ -1,16 +1,15 @@
 export default function ({ $axios, store }) {
   $axios.onRequest(config => {
-    const account = store.getters['accounts/current']
-    if (account !== null) {
-      const {tokenType, accessToken} = account.auth
+    if (null === config.headers['Authorization']) {
+      delete config.headers['Authorization']
+    } else {
+      const account = store.getters['accounts/current']
 
-      console.info('before', config.url, { ...config.headers })
-      if (null === config.headers['Authorization']) {
-        delete config.headers['Authorization']
-      } else {
+      if (account !== null) {
+        const {tokenType, accessToken} = account.auth
+
         config.headers['Authorization'] = `${tokenType} ${accessToken}`
       }
-      console.info('after', config.url, { ...config.headers })
     }
 
     return config
