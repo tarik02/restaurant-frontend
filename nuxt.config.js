@@ -57,10 +57,32 @@ module.exports = {
       },
 
       workbox: {
-        runtimeCaching: {
-          urlPattern: env.UPLOADS_URL + '.*',
-          handler: 'cacheFirst',
-        },
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+            handler: 'staleWhileRevalidate',
+            strategyOptions: {
+              cacheName: 'google-fonts',
+            },
+          },
+
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+            handler: 'cacheFirst',
+            strategyOptions: {
+              cacheName: 'google-fonts',
+            },
+          },
+
+          {
+            urlPattern: env.UPLOADS_URL + '.*',
+            handler: 'staleWhileRevalidate',
+
+            strategyOptions: {
+              cacheName: 'uploads',
+            },
+          },
+        ],
       },
     }],
   ],
