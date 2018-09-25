@@ -29,18 +29,22 @@ export default {
   },
 
   watch: {
-    isActive: {
-      handler(active) {
-        this.updateTransform()
-        this.updateOverlay()
-      },
+    isActive(active) {
+      this.updateTransform()
+      this.updateOverlay()
     },
 
-    calculatedWidth: {
-      immediate: true,
-      handler(width) {
-        this.updateTransform(width)
-      },
+    calculatedWidth(width) {
+      this.updateTransform(width)
+    },
+    
+    isMobile(value) {
+      if (!value) {
+        this.isActive = true
+      }
+
+      this.updateTransform()
+      this.updateOverlay()
     },
   },
 
@@ -60,6 +64,10 @@ export default {
     document.body.appendChild(drawerHandle)
 
     const touchStart = e => {
+      if (!this.isMobile) {
+        return
+      }
+
       const translate = parseFloat(this.$el.style.transform.match(/translateX\((-?\d+)px\)/)[1])
 
       this.touchData.touched = true
@@ -144,7 +152,7 @@ export default {
     updateOverlay() {
       this.drawerOverlay.style.transition = this.dragX !== null ? '0s' : null
 
-      if (this.dragX !== null || this.isActive) {
+      if (this.isMobile && (this.dragX !== null || this.isActive)) {
         this.showScroll()
         this.drawerOverlay.style.display = 'block'
       } else {
@@ -171,7 +179,7 @@ export default {
 
 <style lang="stylus">
 .draggable-navigation-drawer
-  z-index 40000
+  z-index 190
 
 .draggable-navigation-drawer-handle
   width 20px
@@ -179,7 +187,7 @@ export default {
   left 0
   top 0
   bottom 0
-  z-index 50000
+  z-index 195
 
 .draggable-navigation-drawer-overlay
   display none
@@ -191,5 +199,5 @@ export default {
   top 0
   bottom 0
   background black
-  z-index 30000
+  z-index 185
 </style>
