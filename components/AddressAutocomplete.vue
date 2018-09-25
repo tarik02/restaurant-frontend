@@ -40,7 +40,7 @@ const REGIONS_TYPE = [
   'administrative_area_level_2',
 ]
 export default {
-  name: 'VueGoogleAutocomplete',
+  name: 'vue-google-autocomplete',
   props: {
     id: {
       type: String,

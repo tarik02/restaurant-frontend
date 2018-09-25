@@ -28,6 +28,7 @@ module.exports = {
     "vue/max-attributes-per-line": [2, {
       "singleline": 5,
     }],
+    "vue/name-property-casing": ["error", "kebab-case"],
   },
   globals: {}
 }

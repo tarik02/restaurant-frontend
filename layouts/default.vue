@@ -1,23 +1,13 @@
 <template>
   <v-app>
-    <v-navigation-drawer
+    <draggable-navigation-drawer
+      ref="navigationDrawer"
       v-model="drawer"
       mini-variant.sync="miniVariant"
       app
-      fixed>
-      <!-- <v-toolbar flat class="transparent">
-        <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg" />
-            </v-list-tile-avatar>
-
-            <v-list-tile-content>
-              <v-list-tile-title>John Leider</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar> -->
+      fixed
+      touchless
+    >
       <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
         <v-layout column fill-height class="lightbox white--text">
           <v-flex shrink mx-3 mt-3>
@@ -192,7 +182,7 @@
           </template>
         </template>
       </v-list>
-    </v-navigation-drawer>
+    </draggable-navigation-drawer>
 
     <v-toolbar app>
       <v-toolbar-side-icon @click.native="drawer = !drawer" />
@@ -221,9 +211,14 @@
 </template>
 
 <script>
+import DraggableNavigationDrawer from '~/components/draggable-navigation-drawer'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
+  components: {
+    DraggableNavigationDrawer,
+  },
+
   data: () => ({
     drawer: null,
     accountMenu: false,
@@ -289,4 +284,3 @@ export default {
   background-image linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px)
 
 </style>
-
