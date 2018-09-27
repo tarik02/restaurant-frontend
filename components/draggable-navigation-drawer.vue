@@ -153,10 +153,10 @@ export default {
       this.drawerOverlay.style.transition = this.dragX !== null ? '0s' : null
 
       if (this.isMobile && (this.dragX !== null || this.isActive)) {
-        this.showScroll()
+        this.hideScroll()
         this.drawerOverlay.style.display = 'block'
       } else {
-        this.hideScroll()
+        this.showScroll()
         setTimeout(() => {
           this.drawerOverlay.style.display = 'none'
         }, 500)
