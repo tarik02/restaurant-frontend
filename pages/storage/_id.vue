@@ -11,7 +11,9 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="{ item }">
-        <td>{{ item.ingredient }}</td>
+        <td>{{ item.ingredient.title }}</td>
+        <td>{{ item.best_by | moment(Format.DATETIME_MOMENT) }}</td>
+        <td>{{ item.remaining }}/{{ item.count }} {{ item.ingredient.unit }}</td>
         <td class="px-0">
           <v-btn
             icon
@@ -31,6 +33,9 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { mapGetters } from 'vuex'
+
 const INITIAL_ITEM = {
   id: null,
   name: '',
@@ -39,7 +44,9 @@ const INITIAL_ITEM = {
 export default {
   data: () => ({
     headers: [
-      { text: 'Назва', sortable: false, value: 'name' },
+      { text: 'Інгредієнт', sortable: false, value: 'ingredient_id' },
+      { text: 'Термін придатності', sortable: true, value: 'best_by' },
+      { text: 'Залишилося/кількість', sortable: true, value: 'remaining' },
       { text: 'Дії', sortable: false, value: 'name' },
     ],
 
@@ -47,7 +54,10 @@ export default {
     loading: true,
 
     totalItems: 0,
-    pagination: {},
+    pagination: {
+      sortBy: 'best_by',
+      descending: false,
+    },
 
     editDialog: false,
     deleteDialog: false,
@@ -59,6 +69,10 @@ export default {
     id() {
       return this.$route.params.id
     },
+
+    ...mapGetters({
+      ingredientsById: 'operator/ingredientsById',
+    }),
   },
   
   watch: {
@@ -68,6 +82,10 @@ export default {
       },
       deep: true,
     },
+  },
+
+  async fetch ({ store, params }) {
+    await store.dispatch('operator/init')
   },
 
   mounted() {
@@ -84,12 +102,25 @@ export default {
         const { data, meta: { totalCount } } = await this.$axios.$get('/storage/batches', {
           params: {
             id: this.id,
+
             page,
             perPage: rowsPerPage,
+
+            sortBy,
+            descending,
           },
         })
 
-        this.items = data
+        this.items = _.map(data, ({
+          ...batch,
+          ingredient_id,
+          best_by,
+        }) => ({
+          ...batch,
+          ingredient: this.ingredientsById[ingredient_id],
+          best_by: moment(batch.best_by),
+        }))
+
         this.totalItems = totalCount
       } catch (e) {
         console.error(e)

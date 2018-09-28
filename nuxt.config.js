@@ -100,6 +100,7 @@ module.exports = {
 
     '~/plugins/axios.js',
     { src: '~/plugins/persisted-state.js', ssr: false },
+    '~/plugins/format.js',
   ],
 
   css: [
@@ -133,6 +134,7 @@ module.exports = {
   
       '~/plugins/axios.js',
       '~/plugins/persisted-state.js',
+      '~/plugins/format.js',
     ],
 
     extractCSS: true,

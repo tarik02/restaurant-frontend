@@ -27,7 +27,7 @@
         <td>{{ props.item.phone }}</td>
         <td>{{ props.item.price | currency }}</td>
         <td>{{ props.item.status | orderStatus }}</td>
-        <td>{{ props.item.createdAt | moment('Do MMMM YYYY, H:mm:ss') }}</td>
+        <td>{{ props.item.createdAt | moment(Format.DATETIME_MOMENT) }}</td>
         <!-- <td class="justify-center layout px-0">
           <v-btn icon small color="primary" class="mr-2" @click="alert()">
             <v-icon small>edit</v-icon>
