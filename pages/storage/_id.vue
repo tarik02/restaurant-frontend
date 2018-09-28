@@ -50,6 +50,8 @@ export default {
       { text: 'Дії', sortable: false, value: 'name' },
     ],
 
+    // storage: null,
+
     items: [],
     loading: true,
 
@@ -64,6 +66,18 @@ export default {
     editItem: { ...INITIAL_ITEM },
     editValid: true,
   }),
+
+  async asyncData({ $axios, params }) {
+    const { data: storage } = await $axios.$get(`/storage/${params.id}`)
+
+    return {
+      storage,
+    }
+  },
+
+  async fetch ({ store }) {
+    await store.dispatch('operator/init')
+  },
 
   computed: {
     id() {
@@ -84,12 +98,8 @@ export default {
     },
   },
 
-  async fetch ({ store, params }) {
-    await store.dispatch('operator/init')
-  },
-
   mounted() {
-    this.$store.commit('setTitle', 'Склад...') // TODO: Load storage name
+    this.$store.commit('setTitle', `Склад '${this.storage.name}'`)
   },
 
   methods: {
@@ -99,10 +109,8 @@ export default {
       const { sortBy, descending, page, rowsPerPage } = this.pagination
 
       try {
-        const { data, meta: { totalCount } } = await this.$axios.$get('/storage/batches', {
+        const { data, meta: { totalCount } } = await this.$axios.$get(`/storage/${this.id}/batches`, {
           params: {
-            id: this.id,
-
             page,
             perPage: rowsPerPage,
 
