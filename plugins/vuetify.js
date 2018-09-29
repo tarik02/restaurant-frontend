@@ -26,6 +26,10 @@ import {
   VProgressLinear,
   VAvatar,
   VTooltip,
+  VCombobox,
+  VDatePicker,
+  VTimePicker,
+  VTabs,
 
   transitions,
 } from 'vuetify'
@@ -58,6 +62,10 @@ Vue.use(Vuetify, {
     VProgressLinear,
     VAvatar,
     VTooltip,
+    VCombobox,
+    VDatePicker,
+    VTimePicker,
+    VTabs,
 
     transitions,
   },

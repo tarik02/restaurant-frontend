@@ -101,6 +101,8 @@ module.exports = {
     '~/plugins/axios.js',
     { src: '~/plugins/persisted-state.js', ssr: false },
     '~/plugins/format.js',
+    '~/plugins/datetime-picker.js',
+    '~/plugins/validate.js',
   ],
 
   css: [
@@ -135,6 +137,8 @@ module.exports = {
       '~/plugins/axios.js',
       '~/plugins/persisted-state.js',
       '~/plugins/format.js',
+      '~/plugins/datetime-picker.js',
+      '~/plugins/validate.js',
     ],
 
     extractCSS: true,

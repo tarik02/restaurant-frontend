@@ -18,10 +18,12 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "nuxt": "^1.0.0",
+    "qs": "^6.5.2",
     "vue-google-autocomplete": "^1.1.0",
     "vue-googlemaps": "^0.1.1",
     "vue-moment": "^4.0.0",
     "vuetify": "^1.0.0",
+    "vuetify-datetime-picker": "^1.0.6",
     "vuex-persistedstate": "^2.5.4",
     "vuex-shared-mutations": "^0.0.4"
   },

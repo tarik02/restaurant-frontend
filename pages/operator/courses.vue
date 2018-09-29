@@ -118,7 +118,7 @@
               v-for="(ingredient, i) in ingredients"
               :key="i"
               v-model="editedIngredients[ingredient.id]"
-              :rules="[ validateNumber[ingredient.floating ? 'floating' : 'integer'] ]"
+              :rules="[ Validate[ingredient.floating ? 'float' : 'integer'] ]"
               :label="ingredient.title"
               :suffix="ingredient.unit"
               :messages="editedIngredients[ingredient.id]
@@ -201,33 +201,6 @@ export default {
 
     dialogRemove: false,
     courseRemove: {},
-
-    validateNumber: {
-      'integer': v => {
-        if (v === void 0) {
-          return true
-        }
-
-        const n = Number(v)
-        if (isNaN(n) || !Number.isInteger(n)) {
-          return 'Значення повинно бути цілим числом'
-        }
-
-        return true
-      },
-      'floating': v => {
-        if (v === void 0) {
-          return true
-        }
-
-        const n = typeof v === 'number' ? v : Number(v.replace(',', '.'))
-        if (isNaN(n) || !Number.isFinite(n)) {
-          return 'Значення повинно бути числом'
-        }
-
-        return true
-      },
-    },
   }),
 
   computed: {

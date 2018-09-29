@@ -1,4 +1,8 @@
+import qs from 'qs'
+
 export default function ({ $axios, store }) {
+  $axios.defaults.paramsSerializer = params => qs.stringify(params, { arrayFormat: 'brackets' })
+
   $axios.onRequest(config => {
     if (null === config.headers['Authorization']) {
       delete config.headers['Authorization']

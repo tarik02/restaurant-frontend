@@ -5154,6 +5154,10 @@ qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
+qs@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -6410,13 +6414,25 @@ vue-toasted@^1.1.24:
   version "1.1.24"
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.24.tgz#715a371dfa490cc710ffedaaeae61fd8a8c4f7ad"
 
-vue@^2.5.17:
+vue@^2.3.0, vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
+
+vuetify-datetime-picker@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vuetify-datetime-picker/-/vuetify-datetime-picker-1.0.6.tgz#3ca9bc8955c47cf58971a3b4b5ee6853c6db060f"
+  dependencies:
+    moment "^2.22.2"
+    vue "^2.3.0"
+    vuetify "^1.1.4"
 
 vuetify@^1.0.0:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.2.3.tgz#519bab56c31420892912c0c7dbd23e790c9287bb"
+
+vuetify@^1.1.4:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.2.5.tgz#91578367709b20e406f2cdc7a164dfd70df954d9"
 
 vuex-persistedstate@^2.5.4:
   version "2.5.4"
