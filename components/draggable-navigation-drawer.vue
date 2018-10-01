@@ -7,6 +7,23 @@ export default {
   
   extends: VNavigationDrawer,
 
+  props: {
+    instantThreshold: {
+      type: Number,
+      default: 400,
+    },
+
+    openThreshold: {
+      type: Number,
+      default: 0.5,
+    },
+
+    closeThreshold: {
+      type: Number,
+      default: 0.5,
+    },
+  },
+
   data: () => ({
     dragX: null,
   }),
@@ -53,6 +70,7 @@ export default {
       touched: false,
       startX: 0,
       startTranslate: 0,
+      time: null,
     }
 
     const drawerOverlay = this.drawerOverlay = document.createElement('div')
@@ -73,6 +91,7 @@ export default {
       this.touchData.touched = true
       this.touchData.startX = e.touches[0].pageX
       this.touchData.startTranslate = translate
+      this.touchData.time = Date.now()
     }
     const touchMove = e => {
       if (!this.touchData.touched) {
@@ -139,9 +158,16 @@ export default {
     },
 
     resetTransform() {
-      if (this.dragX / this.calculatedWidth >= 1/2) {
+      const diff = Date.now() - this.touchData.time
+      const instant = diff < this.instantThreshold
+      const openThreshold = instant ? -Infinity : this.openThreshold
+      const closeThreshold = instant ? Infinity : this.closeThreshold
+
+      const progress = this.dragX / this.calculatedWidth
+
+      if (!this.isActive && progress > openThreshold) {
         this.isActive = true
-      } else {
+      } else if (this.isActive && progress < closeThreshold) {
         this.isActive = false
       }
       this.dragX = null
@@ -192,7 +218,7 @@ export default {
 .draggable-navigation-drawer-overlay
   display none
   opacity 0
-  transition opacity .5s
+  transition opacity .2s cubic-bezier(0.4, 0, 0.2, 1)
   position fixed
   left 0
   right 0
