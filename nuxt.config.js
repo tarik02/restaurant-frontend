@@ -103,6 +103,7 @@ module.exports = {
     '~/plugins/format.js',
     '~/plugins/datetime-picker.js',
     '~/plugins/validate.js',
+    '~/plugins/notifications.js',
   ],
 
   css: [
@@ -139,6 +140,7 @@ module.exports = {
       '~/plugins/format.js',
       '~/plugins/datetime-picker.js',
       '~/plugins/validate.js',
+      '~/plugins/notifications.js',
     ],
 
     extractCSS: true,
