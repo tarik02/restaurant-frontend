@@ -14,6 +14,13 @@
         <td>{{ item.name }}</td>
         <td class="px-0">
           <v-btn
+            :to="{ name: 'storage-id', params: { id: item.id } }"
+            icon
+            small
+            nuxt
+          ><v-icon small>list_alt</v-icon></v-btn>
+
+          <v-btn
             icon
             small
             @click="editOpen(item)"
