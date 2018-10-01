@@ -151,6 +151,16 @@
             <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
           </v-list-tile> -->
 
+          <template v-if="account && account.data.roles.includes('storage')">
+            <v-divider />
+
+            <v-subheader>Склади</v-subheader>
+            <v-list-tile :to="{ name: 'storage' }">
+              <v-list-tile-action><v-icon>storage</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Склади</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
+
           <template v-if="account && account.data.roles.includes('operator')">
             <v-divider />
 
