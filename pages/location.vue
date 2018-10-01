@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { LOCATION_DEFAULT } from '~/common/consts'
 import AddressAutocomplete from '~/components/AddressAutocomplete'
 import debounce from 'lodash.debounce'
 
@@ -101,7 +102,7 @@ export default {
       clickableIcons: false,
     },
 
-    center: { lat: 50.7593, lng: 25.3424 }, // Lutsk
+    center: { lat: LOCATION_DEFAULT.latitude, lng: LOCATION_DEFAULT.longitude },
     target: null,
     zoom: 14,
 
@@ -144,6 +145,12 @@ export default {
             this.locating = false
             resolve(true)
           }, (error) => {
+            const pos = { lat: LOCATION_DEFAULT.latitude, lng: LOCATION_DEFAULT.longitude }
+
+            this.target = pos
+            this.$refs.map.panTo(pos)
+            this.zoom = 14
+
             this.locating = false
             reject(error)
           }, {
