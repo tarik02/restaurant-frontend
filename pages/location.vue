@@ -1,22 +1,12 @@
 <template>
   <v-card height="100%">
     <v-layout fill-height column>
-      <address-autocomplete
-        id="map"
-        ref="autocomplete"
-        :disabled="locating"
-        :loading="movingMarker"
-        :country="['ua']"
-        classname="mx-2 form-control"
-        placeholder="Адреса призначення"
-        @placechanged="getAddressData"
-      />
-
       <div style="flex: 100% 1 1;" class="gmaps-container">
         <googlemaps-map
           ref="map"
           :center.sync="center"
           :zoom.sync="zoom"
+          :options="mapOptions"
           @idle="idle"
           @click="setMarker"
         >
@@ -30,6 +20,32 @@
             title="Точка призначення"
           />
         </googlemaps-map>
+
+        <v-toolbar
+          class="toolbar"
+          dense
+          floating
+        >
+          <address-autocomplete
+            id="map"
+            ref="autocomplete"
+            :disabled="locating"
+            :loading="movingMarker"
+            :country="['ua']"
+            classname="mx-2 form-control"
+            placeholder="Адреса призначення"
+            hide-details
+            prepend-icon="search"
+            single-line
+            @placechanged="getAddressData"
+          />
+
+          <v-btn
+            :disabled="locating"
+            icon
+            @click="myLocation"
+          ><v-icon>my_location</v-icon></v-btn>
+        </v-toolbar>
 
         <v-fade-transition>
           <v-layout
@@ -49,14 +65,6 @@
         <v-btn to="cart">
           <v-icon>keyboard_arrow_left</v-icon>&nbsp;Назад
         </v-btn>
-
-        <v-spacer />
-
-        <v-btn
-          :disabled="locating"
-          icon
-          @click="myLocation"
-        ><v-icon>my_location</v-icon></v-btn>
 
         <v-spacer />
 
@@ -85,6 +93,14 @@ export default {
   },
 
   data: () => ({
+    mapOptions: {
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+
+      clickableIcons: false,
+    },
+
     center: { lat: 50.7593, lng: 25.3424 }, // Lutsk
     target: null,
     zoom: 14,
@@ -215,13 +231,20 @@ export default {
 <style lang="stylus" scoped>
 .gmaps-container
   position relative
+
   &>*
     position absolute
     left 0
     top 0
     right 0
     bottom 0
-  
+
+  .toolbar
+    left 16px
+    top 16px
+    right auto
+    bottom auto
+
   .gmaps-overlay
     background alpha(black, .5)
 </style>
