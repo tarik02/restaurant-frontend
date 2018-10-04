@@ -47,6 +47,7 @@ export default class AsyncQueue {
       task.fulfilled(task.index, result)
     } catch (e) {
       console.error(e)
+      task.fulfilled(task.index, null)
     } finally {
       ++this._freeWorkers
     }
