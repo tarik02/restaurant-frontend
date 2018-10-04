@@ -159,6 +159,11 @@
               <v-list-tile-action><v-icon>storage</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Склади</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
+
+            <v-list-tile :to="{ name: 'storage-id', params: { id: 'old' } }">
+              <v-list-tile-action><v-icon>restore_from_trash</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Старі товари</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
           </template>
 
           <template v-if="account && account.data.roles.includes('operator')">

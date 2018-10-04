@@ -5,6 +5,7 @@ import AsyncQueue from '~/common/async-queue'
 export default function ({ $axios, store }) {
   const handleNotification = async ({ type, data, createdAt }) => {
     switch (type) {
+    
     default:
       console.warn('Notification of unknown type:')
       console.warn('type:', type)

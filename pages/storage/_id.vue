@@ -25,6 +25,12 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="{ item }">
+        <router-link
+          v-if="!storage"
+          :to="{ name: 'storage-id', params: { id: item.storage.id } }"
+          tag="td"
+          style="cursor: pointer;"
+        >{{ item.storage.name }}</router-link>
         <td>{{ item.ingredient.title }}</td>
         <td>{{ item.best_by | moment(Format.DATETIME_MOMENT) }}</td>
         <td>{{ item.remaining }}/{{ item.count }} {{ item.ingredient.unit }}</td>
@@ -132,7 +138,8 @@
         </v-card-title>
 
         <v-card-text>
-          Дійсьно бажаєте видалити товар "{{ editItem.ingredient && editItem.ingredient.title }}" зі складу "{{ storage.name }}"
+          Дійсьно бажаєте видалити товар "{{ editItem.ingredient && editItem.ingredient.title }}"
+          <template v-if="storage"> зі складу "{{ storage.name }}"</template>
         </v-card-text>
 
         <v-card-actions>
@@ -166,15 +173,6 @@ const INITIAL_ITEM = {
 
 export default {
   data: () => ({
-    headers: [
-      { text: 'Інгредієнт', sortable: false, value: 'ingredient_id' },
-      { text: 'Придатний до', sortable: true, value: 'best_by' },
-      { text: 'Залишилося/кількість', sortable: true, value: 'remaining' },
-      { text: 'Дії', sortable: false, value: 'name' },
-    ],
-
-    // storage: null,
-
     items: [],
     loading: true,
 
@@ -194,10 +192,16 @@ export default {
   }),
 
   async asyncData({ $axios, params }) {
-    const { data: storage } = await $axios.$get(`/storage/${params.id}`)
+    if (params.id === 'old') {
+      return {
+        storage: null,
+      }
+    } else {
+      const { data: storage } = await $axios.$get(`/storage/${params.id}`)
 
-    return {
-      storage,
+      return {
+        storage,
+      }
     }
   },
 
@@ -207,7 +211,21 @@ export default {
 
   computed: {
     id() {
-      return parseInt(this.$route.params.id)
+      return this.old ? 'old' : parseInt(this.$route.params.id)
+    },
+
+    old() {
+      return this.$route.params.id === 'old'
+    },
+
+    headers() {
+      return _.filter([
+        this.old ? { text: 'Склад', sortable: false, value: 'storage.id' } : null,
+        { text: 'Інгредієнт', sortable: false, value: 'ingredient_id' },
+        { text: 'Придатний до', sortable: true, value: 'best_by' },
+        { text: 'Залишилося/кількість', sortable: true, value: 'remaining' },
+        { text: 'Дії', sortable: false, value: 'name' },
+      ])
     },
 
     ...mapState({
@@ -236,7 +254,11 @@ export default {
   },
 
   mounted() {
-    this.$store.commit('setTitle', `Склад '${this.storage.name}'`)
+    if (this.storage === null) {
+      this.$store.commit('setTitle', 'Старі товари')
+    } else {
+      this.$store.commit('setTitle', `Склад '${this.storage.name}'`)
+    }
   },
 
   methods: {
@@ -249,17 +271,20 @@ export default {
       const filter = _.omitBy(this.filter, value => value === null)
 
       try {
-        const { data, meta: { totalCount } } = await this.$axios.$get(`/storage/${this.id}/batches`, {
-          params: {
-            page,
-            perPage: rowsPerPage,
+        const { data, meta: { totalCount } } = await this.$axios.$get(
+          this.old ? '/storage/batches/old' : `/storage/${this.id}/batches`,
+          {
+            params: {
+              page,
+              perPage: rowsPerPage,
 
-            sortBy,
-            descending,
+              sortBy,
+              descending,
 
-            filter,
-          },
-        })
+              filter,
+            },
+          }
+        )
 
         this.items = _.map(data, ({
           ingredient_id,
