@@ -23,6 +23,7 @@
     "vue-google-autocomplete": "^1.1.0",
     "vue-googlemaps": "^0.1.1",
     "vue-moment": "^4.0.0",
+    "vue-overdrive": "^0.0.12",
     "vuetify": "^1.0.0",
     "vuetify-datetime-picker": "^1.0.6",
     "vuex-persistedstate": "^2.5.4",

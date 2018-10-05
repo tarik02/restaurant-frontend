@@ -5177,6 +5177,10 @@ querystring@0.2.0, querystring@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
+ramjet@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/ramjet/-/ramjet-0.5.0.tgz#1a7a972b5c2abbc4e94c52baf778feb4b46dd50f"
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.6.tgz#d302c522948588848a8d300c932b44c24231da80"
@@ -6374,6 +6378,12 @@ vue-moment@^4.0.0:
 vue-observe-visibility@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/vue-observe-visibility/-/vue-observe-visibility-0.3.1.tgz#e7cad37893da42858c086196da9acdb0fd85340b"
+
+vue-overdrive@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/vue-overdrive/-/vue-overdrive-0.0.12.tgz#3433dad0c6745154537011be6c37d00e3af08b68"
+  dependencies:
+    ramjet "^0.5.0"
 
 vue-resize@^0.4.1:
   version "0.4.4"

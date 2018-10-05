@@ -5,7 +5,7 @@
       grid-list-lg
     >
       <v-layout row wrap justify-center>
-        <course v-for="(course, i) in courses" :course="course" :key="i" />
+        <course v-for="(course) in courses" :course="course" :key="course.id" />
       </v-layout>
     </v-container>
   </v-card>

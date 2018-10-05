@@ -5,18 +5,16 @@
         <v-progress-circular color="primary" indeterminate />
       </v-layout>
       <v-layout v-else row wrap justify-center>
-        <course v-for="(course, i) in courses" :course="course" :key="i">
-          <template slot="actions">
-            <span class="title ml-2 grey--text">{{ course.price | currency }}</span>
-
-            <v-spacer />
-
-            <v-btn color="primary" dark @click="editCourse(course)">
-              Редагувати
-            </v-btn>
-            <v-btn color="red" dark @click="deleteCourse(course)">
-              Видалити
-            </v-btn>
+        <course v-for="(course) in courses" :course="course" :key="course.id">
+          <template slot="buttons">
+            <div>
+              <v-btn color="primary" dark @click="editCourse(course)">
+                Редагувати
+              </v-btn>
+              <v-btn color="red" dark @click="deleteCourse(course)">
+                Видалити
+              </v-btn>
+            </div>
           </template>
         </course>
 

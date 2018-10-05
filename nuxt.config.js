@@ -104,6 +104,7 @@ module.exports = {
     '~/plugins/datetime-picker.js',
     '~/plugins/validate.js',
     '~/plugins/notifications.js',
+    '~/plugins/overdrive.js',
   ],
 
   css: [
@@ -141,6 +142,7 @@ module.exports = {
       '~/plugins/datetime-picker.js',
       '~/plugins/validate.js',
       '~/plugins/notifications.js',
+      '~/plugins/overdrive.js',
     ],
 
     extractCSS: true,
