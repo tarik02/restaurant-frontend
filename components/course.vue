@@ -1,60 +1,58 @@
 <template>
-  <overdrive :id="course.id">
-    <v-flex xs12>
-      <v-card>
-        <v-carousel
-          :hide-controls="course.images.length === 1"
-          :cycle="false"
-          hide-delimiters
+  <v-flex xs12>
+    <v-card>
+      <v-carousel
+        :hide-controls="course.images.length === 1"
+        :cycle="false"
+        hide-delimiters
+      >
+        <v-carousel-item
+          v-for="(image, i) in course.images"
+          :key="i"
+          :src="image | uploaded"
         >
-          <v-carousel-item
-            v-for="(image, i) in course.images"
-            :key="i"
-            :src="image | uploaded"
-          >
-            <v-container fill-height fluid>
-              <v-layout fill-height>
-                <v-flex xs12 align-end flexbox>
-                  <span class="headline grey--text text--lighten-5">{{ course.title }}</span>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-carousel-item>
-        </v-carousel>
+          <v-container fill-height fluid>
+            <v-layout fill-height>
+              <v-flex xs12 align-end flexbox>
+                <span class="headline grey--text text--lighten-5">{{ course.title }}</span>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-carousel-item>
+      </v-carousel>
 
-        <v-card-title>
-          <div>
-            <span>{{ course.description }}</span>
-          </div>
-        </v-card-title>
+      <v-card-title>
+        <div>
+          <span>{{ course.description }}</span>
+        </div>
+      </v-card-title>
 
-        <v-card-actions>
-          <slot name="actions">
-            <span class="title ml-2 grey--text">{{ course.price | currency }}</span>
+      <v-card-actions>
+        <slot name="actions">
+          <span class="title ml-2 grey--text">{{ course.price | currency }}</span>
 
-            <v-spacer />
+          <v-spacer />
 
-            <transition name="fade" mode="out-in">
-              <slot name="buttons">
-                <div v-if="cartCountOf(course.id) === 0" key="a">
-                  <v-btn color="primary" @click="addToCart(course)">Додати до корзини</v-btn>
-                </div>
-                <div v-else key="b">
-                  <span class="title ml-2 grey--text mr-2">
-                    {{ (cartCountOf(course.id) * course.price) | currency }}
-                  </span>
+          <transition name="fade" mode="out-in">
+            <slot name="buttons">
+              <div v-if="cartCountOf(course.id) === 0" key="a">
+                <v-btn color="primary" @click="addToCart(course)">Додати до корзини</v-btn>
+              </div>
+              <div v-else key="b">
+                <span class="title ml-2 grey--text mr-2">
+                  {{ (cartCountOf(course.id) * course.price) | currency }}
+                </span>
 
-                  <v-btn icon @click="removeFromCart(course)"><v-icon>remove</v-icon></v-btn>
-                  <v-btn icon flat disabled>{{ cartCountOf(course.id) }}</v-btn>
-                  <v-btn icon @click="addToCart(course)"><v-icon>add</v-icon></v-btn>
-                </div>
-              </slot>
-            </transition>
-          </slot>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </overdrive>
+                <v-btn icon @click="removeFromCart(course)"><v-icon>remove</v-icon></v-btn>
+                <v-btn icon flat disabled>{{ cartCountOf(course.id) }}</v-btn>
+                <v-btn icon @click="addToCart(course)"><v-icon>add</v-icon></v-btn>
+              </div>
+            </slot>
+          </transition>
+        </slot>
+      </v-card-actions>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
