@@ -104,9 +104,9 @@ export default {
     openSelectDialog() {
       const { accept } = this
       const input = document.createElement('input')
-      
+
       input.type = 'file'
-      input.style.display = 'hidden'
+      input.style.display = 'none'
       input.multiple = true
       input.accept = accept ? (accept instanceof Array ? accept.join(',') : accept) : null
       input.onchange = this._fileChangedBinded
