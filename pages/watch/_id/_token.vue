@@ -27,7 +27,7 @@
         <v-layout fill-height column>
           <v-progress-linear
             :indeterminate="info.totalDistance === null"
-            :value="100 * (lastDistance / info.totalDistance)"
+            :value="100 * (1 - lastDistance / info.totalDistance)"
             class="mt-0"
             color="primary"
             height="3"
