@@ -79,6 +79,51 @@
               <v-btn :to="{ name: 'menu' }" class="mt-3"><v-icon>restaurant_menu</v-icon>&nbsp;Меню</v-btn>
             </v-flex>
           </v-layout>
+          
+          <v-dialog v-model="rateDialog" max-width="500">
+            <v-card>
+              <v-card-title class="headline">Відгук</v-card-title>
+
+              <v-card-text>
+                Залиште відгук. Ваші відгуки дозволяють нам покращувати наш сервіс.
+
+                <div class="text-xs-center mt-4">
+                  <v-textarea
+                    v-model="rateText"
+                    solo
+                    auto-grow
+                    counter="300"
+                    label="Текст відгуку"
+                  />
+
+                  <v-rating
+                    v-model="rateValue"
+                    hover
+                  />
+                </div>
+              </v-card-text>
+
+              <v-divider />
+
+              <v-card-actions>
+                <v-spacer />
+
+                <v-btn
+                  flat
+                  @click="dontRate"
+                >
+                  Ні, дякую
+                </v-btn>
+
+                <v-btn
+                  color="primary"
+                  @click="sendRating"
+                >
+                  Відправити
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-layout>
       </template>
     </template>
@@ -93,7 +138,7 @@
 </template>
 
 <script>
-import { getOrderStatusName } from '~/common/order-status'
+import { OrderStatus, getOrderStatusName } from '~/common/order-status'
 import { measureAverageSpeed } from '~/common/average-speed'
 import { distanceBetweenTwoPoints } from '~/common/geo-distance'
 
@@ -121,6 +166,10 @@ export default {
       disableDoubleClickZoom: true,
       gestureHandling: 'none',
     },
+
+    rateDialog: false,
+    rateText: '',
+    rateValue: null,
   }),
 
   computed: {
@@ -162,6 +211,10 @@ export default {
         const newInfo = await this.$axios.$get(`/order/${this.id}/${this.token}`, { progress: false })
         if (this.info === null || this.info.status !== newInfo.status) {
           this.$store.commit('setTitle', getOrderStatusName(newInfo.status))
+
+          if (newInfo.status === OrderStatus.DONE) {
+            this.rateDialog = newInfo.needsReview
+          }
         }
 
         this.info = newInfo
@@ -198,6 +251,31 @@ export default {
         })
       } catch (e) {
         console.error(e)
+      }
+    },
+
+    async dontRate() {
+      this.rateDialog = false
+
+      await this.$axios.$post(`/order/dont-rate/${this.id}/${this.token}`)
+    },
+
+    async sendRating() {
+      try {
+        const response = await this.$axios.$post(`/order/rate/${this.id}/${this.token}`, {
+          text: this.rateText,
+          rating: this.rateValue,
+        })
+
+        if (response.status !== 'ok') {
+          throw new Error(response.reason)
+        }
+
+        this.rateDialog = false
+        this.$toast.success('Дякуємо за ваш відгук!')
+      } catch (e) {
+        console.error(e)
+        this.$toast.error('Помилка відправлення відгуку')
       }
     },
   },

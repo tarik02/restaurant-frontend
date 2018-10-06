@@ -31,6 +31,7 @@ import {
   VTimePicker,
   VTabs,
   VSwitch,
+  VRating,
 
   transitions,
 } from 'vuetify'
@@ -68,6 +69,7 @@ Vue.use(Vuetify, {
     VTimePicker,
     VTabs,
     VSwitch,
+    VRating,
 
     transitions,
   },
