@@ -35,7 +35,13 @@
 
           <div class="mb-2">
             <v-icon style="margin-bottom: -4px;" class="ml-2 mr-1">time_to_leave</v-icon>
-            <template v-if="estimatedDepartureTime === null || estimatedDepartureTime > 3600">
+            <template
+              v-if="
+                estimatedDepartureTime === null ||
+                  estimatedDepartureTime < 0 ||
+                  estimatedDepartureTime > 3600
+              "
+            >
               Розрахунок очікуваного часу доставки...
             </template>
             <template v-else>

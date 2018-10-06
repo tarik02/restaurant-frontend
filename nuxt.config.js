@@ -105,6 +105,7 @@ module.exports = {
     '~/plugins/validate.js',
     '~/plugins/notifications.js',
     '~/plugins/overdrive.js',
+    '~/plugins/driver-tracker.js',
   ],
 
   css: [
@@ -143,6 +144,7 @@ module.exports = {
       '~/plugins/validate.js',
       '~/plugins/notifications.js',
       '~/plugins/overdrive.js',
+      '~/plugins/driver-tracker.js',
     ],
 
     extractCSS: true,

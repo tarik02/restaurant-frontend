@@ -30,6 +30,7 @@ import {
   VDatePicker,
   VTimePicker,
   VTabs,
+  VSwitch,
 
   transitions,
 } from 'vuetify'
@@ -66,6 +67,7 @@ Vue.use(Vuetify, {
     VDatePicker,
     VTimePicker,
     VTabs,
+    VSwitch,
 
     transitions,
   },

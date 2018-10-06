@@ -145,11 +145,31 @@
             <v-list-tile-content><v-list-tile-title>Корзина</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
 
-          <!-- <v-subheader>Водій</v-subheader>
-          <v-list-tile @click="alert('hello')">
-            <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
-          </v-list-tile> -->
+          <template v-if="account && account.data.roles.includes('driver')">
+            <v-divider />
+
+            <v-subheader>Водій</v-subheader>
+            <!-- <v-list-tile :to="{ name: 'driver' }">
+              <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
+            </v-list-tile> -->
+
+            <v-list-tile @click="toggleGeoSwitch()">
+              <v-list-tile-action><v-icon>not_listed_location</v-icon></v-list-tile-action>
+              <v-layout
+                tag="v-list-tile-content"
+                row
+                style="overflow: visible; width: 100%; align-items: center;"
+              >
+                <v-list-tile-title style="flex-grow: 1;">Гео-трекер</v-list-tile-title>
+                <v-switch
+                  v-model="geoTrackerSwitch"
+                  style="flex-grow: 0; margin-bottom: -6px;"
+                  @click.stop="toggleGeoSwitch()"
+                />
+              </v-layout>
+            </v-list-tile>
+          </template>
 
           <template v-if="account && account.data.roles.includes('storage')">
             <v-divider />
@@ -220,6 +240,36 @@
     <v-content>
       <v-container fill-height d-block pa-0>
         <nuxt />
+
+        <v-dialog v-model="geoTrackerDialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline">Трекер</v-card-title>
+
+            <v-card-text>
+              Увімкнути трекер, який буде відправляти ваше місцезнаходження для розрахування приблизного часу прибуття. Клієнт буде бачити ваше місцезнаходження.
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer />
+
+              <v-btn
+                color="green darken-1"
+                flat="flat"
+                @click="geoTrackerDialog = false"
+              >
+                Відмінити
+              </v-btn>
+
+              <v-btn
+                color="green darken-1"
+                flat="flat"
+                @click="enableTracker"
+              >
+                Увімкнути
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-container>
     </v-content>
   </v-app>
@@ -227,7 +277,7 @@
 
 <script>
 import DraggableNavigationDrawer from '~/components/draggable-navigation-drawer'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -237,6 +287,8 @@ export default {
   data: () => ({
     drawer: null,
     accountMenu: false,
+
+    geoTrackerDialog: false,
   }),
 
   head() {
@@ -249,6 +301,8 @@ export default {
     ...mapState({
       shortTitle: state => state.title.short,
       currentPage: state => state.currentPage,
+
+      geoTrackerSwitch: state => state.driver.trackerEnabled,
     }),
 
     ...mapGetters({
@@ -273,6 +327,27 @@ export default {
 
     switchAccountMenu() {
       this.accountMenu = !this.accountMenu
+    },
+
+    toggleGeoSwitch() {
+      const newSwitch = !this.geoTrackerSwitch
+
+      if (newSwitch) {
+        this.drawer = false
+        this.geoTrackerDialog = true
+      } else {
+        this.disableTracker()
+      }
+    },
+
+    enableTracker() {
+      this.geoTrackerDialog = false
+
+      this.$driverTracker.start()
+    },
+
+    disableTracker() {
+      this.$driverTracker.stop()
     },
   },
 }

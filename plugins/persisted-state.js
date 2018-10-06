@@ -7,6 +7,7 @@ export default ({store}) => {
     paths: [
 			'accounts',
 			'cart',
+			'driver',
 		],
 	})(store)
 	
@@ -18,6 +19,10 @@ export default ({store}) => {
 			'cart/add',
 			'cart/remove',
 			'cart/clear',
+
+			'driver/enablingTracker',
+			'driver/enableTracker',
+			'driver/disableTracker',
 		],
 	})(store)
 
