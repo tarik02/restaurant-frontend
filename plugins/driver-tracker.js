@@ -54,6 +54,10 @@ export default function ({ $axios, store, app }, inject) {
           this.stop(false)
           app.$toast.error('Помилка увімкнення трекера')
         },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0,
+        }
       )
     },
 
