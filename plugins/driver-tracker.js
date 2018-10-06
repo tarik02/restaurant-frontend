@@ -51,7 +51,7 @@ export default function ({ $axios, store, app }, inject) {
         error => {
           console.error(error)
 
-          store.commit('driver/disableTracker')
+          this.stop(false)
           app.$toast.error('Помилка увімкнення трекера')
         },
       )
