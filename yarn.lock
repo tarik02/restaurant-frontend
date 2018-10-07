@@ -2900,6 +2900,10 @@ html-minifier@^3.2.3, html-minifier@^3.5.9:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
+html-substring@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/html-substring/-/html-substring-1.2.0.tgz#6dfbea79cc0e620fb19b21b17fb43a2a35068b8e"
+
 html-tags@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-2.0.0.tgz#10b30a386085f43cede353cc8fa7cb0deeea668b"

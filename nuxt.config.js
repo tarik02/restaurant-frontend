@@ -106,6 +106,8 @@ module.exports = {
     '~/plugins/notifications.js',
     '~/plugins/overdrive.js',
     '~/plugins/driver-tracker.js',
+    '~/plugins/html-substring.js',
+    '~/plugins/resources.js',
   ],
 
   css: [
@@ -145,6 +147,8 @@ module.exports = {
       '~/plugins/notifications.js',
       '~/plugins/overdrive.js',
       '~/plugins/driver-tracker.js',
+      '~/plugins/html-substring.js',
+      '~/plugins/resources.js',
     ],
 
     extractCSS: true,

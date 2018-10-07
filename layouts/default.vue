@@ -215,6 +215,15 @@
               <v-list-tile-content><v-list-tile-title>Статистика</v-list-tile-title></v-list-tile-content>
             </v-list-tile> -->
           </template>
+
+          <template v-if="account && account.data.roles.includes('reviews')">
+            <v-divider />
+
+            <v-list-tile :to="{ name: 'reviews' }">
+              <v-list-tile-action><v-icon>rate_review</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Відгуки</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
         </template>
       </v-list>
     </draggable-navigation-drawer>
