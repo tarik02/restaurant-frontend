@@ -5,6 +5,7 @@ export const OrderStatus = Object.freeze({
 
 	WAITING: 'waiting',
 	COOKING: 'cooking',
+	WAITING_FOR_DRIVER: 'waiting_for_driver',
 	INROAD: 'inroad',
 	DONE: 'done',
 })
@@ -16,6 +17,7 @@ export const OrderStatusNames = Object.freeze({
 	
 	[OrderStatus.WAITING]: 'На кухні',
 	[OrderStatus.COOKING]: 'На кухні',
+	[OrderStatus.WAITING_FOR_DRIVER]: 'На кухні',
 	[OrderStatus.INROAD]: 'У дорозі',
 	[OrderStatus.DONE]: 'Доставлено',
 })

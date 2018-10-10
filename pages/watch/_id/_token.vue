@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import { LOCATION_DEFAULT } from '~/common/consts'
 import { OrderStatus, getOrderStatusName } from '~/common/order-status'
 import { measureAverageSpeed } from '~/common/average-speed'
 import { distanceBetweenTwoPoints } from '~/common/geo-distance'
@@ -149,7 +150,7 @@ export default {
 
     info: null,
 
-    center: { lat: 50.7593, lng: 25.3424 },
+    center: { lat: LOCATION_DEFAULT.latitude, lng: LOCATION_DEFAULT.longitude },
     zoom: 14,
     target: null,
 

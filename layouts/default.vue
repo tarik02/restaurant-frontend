@@ -149,10 +149,10 @@
             <v-divider />
 
             <v-subheader>Водій</v-subheader>
-            <!-- <v-list-tile :to="{ name: 'driver' }">
+            <v-list-tile :to="{ name: 'driver-dashboard' }">
               <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
-            </v-list-tile> -->
+            </v-list-tile>
 
             <v-list-tile @click="toggleGeoSwitch()">
               <v-list-tile-action><v-icon>not_listed_location</v-icon></v-list-tile-action>
