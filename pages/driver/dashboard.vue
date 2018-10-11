@@ -105,43 +105,69 @@
           </v-fade-transition>
 
           <v-fade-transition>
-            <v-form v-show="drivingTab === 1" class="mx-2">
-              <v-text-field
-                v-model="order.contact_name"
-                prepend-icon="person"
-                label="Ім'я"
-                readonly
-              />
+            <v-card v-show="drivingTab === 1" class="mx-2" flat>
+              <v-card-text class="pa-0">
+                <v-text-field
+                  v-model="order.contact_name"
+                  prepend-icon="person"
+                  label="Ім'я"
+                  readonly
+                />
 
-              <v-text-field
-                v-model="order.phone"
-                prepend-icon="local_phone"
-                label="Телефон"
-                readonly
-              />
+                <v-layout row>
+                  <v-text-field
+                    v-model="order.phone"
+                    prepend-icon="local_phone"
+                    label="Телефон"
+                    readonly
+                  />
 
-              <v-text-field
-                :value="(order.price / 100).toString()"
-                prepend-icon="credit_card"
-                label="До сплати"
-                suffix="₴"
-                readonly
-              />
+                  <v-btn
+                    :href="`tel:${encodeURIComponent(order.phone)}`"
+                    flat
+                    fab
+                    small
+                  ><v-icon>call</v-icon></v-btn>
+                </v-layout>
 
-              <v-text-field
-                v-model="order.target.address"
-                prepend-icon="location_on"
-                label="Точка призначення"
-                readonly
-              />
+                <v-text-field
+                  :value="(order.price / 100).toString()"
+                  prepend-icon="credit_card"
+                  label="До сплати"
+                  suffix="₴"
+                  readonly
+                />
 
-              <v-textarea
-                v-model="order.notes"
-                prepend-icon="notes"
-                label="Примітки щодо місця призначення"
-                readonly
-              />
-            </v-form>
+                <v-text-field
+                  v-model="order.target.address"
+                  prepend-icon="location_on"
+                  label="Точка призначення"
+                  readonly
+                />
+
+                <v-textarea
+                  v-model="order.notes"
+                  prepend-icon="notes"
+                  label="Примітки щодо місця призначення"
+                  readonly
+                />
+              </v-card-text>
+
+              <v-card-actions class="pa-0">
+                <v-spacer />
+
+                <v-btn
+                  color="red"
+                  dark
+                  @click="cancelOrder"
+                >Скасувати</v-btn>
+
+                <v-btn
+                  color="primary"
+                  @click="endOrder"
+                >Позначити виконаним</v-btn>
+              </v-card-actions>
+            </v-card>
           </v-fade-transition>
         </v-layout>
 
@@ -332,6 +358,26 @@ export default {
 
       default:
         this.$toast.error('Помилка замовлення')
+      }
+    },
+
+    async cancelOrder() {
+      const response = await this.$axios.$post('/driver/cancel-order')
+
+      if (response.status === 'ok') {
+        this.$toast.success('Замовлення скасовано')
+      } else {
+        this.$toast.error('Помилка скасування')
+      }
+    },
+
+    async endOrder() {
+      const response = await this.$axios.$post('/driver/end-order')
+
+      if (response.status === 'ok') {
+        this.$toast.success('Замовлення виконано')
+      } else {
+        this.$toast.error('Помилка виконання')        
       }
     },
   },

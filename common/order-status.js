@@ -8,6 +8,7 @@ export const OrderStatus = Object.freeze({
 	WAITING_FOR_DRIVER: 'waiting_for_driver',
 	INROAD: 'inroad',
 	DONE: 'done',
+	CANCELLED: 'cancelled',
 })
 
 // export const OrderStatusBack = Object.freeze(_.invert(OrderStatus))
@@ -20,6 +21,7 @@ export const OrderStatusNames = Object.freeze({
 	[OrderStatus.WAITING_FOR_DRIVER]: 'На кухні',
 	[OrderStatus.INROAD]: 'У дорозі',
 	[OrderStatus.DONE]: 'Доставлено',
+	[OrderStatus.CANCELLED]: 'Відмінено',
 })
 
 export const getOrderStatusName =

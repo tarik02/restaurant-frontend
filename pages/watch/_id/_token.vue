@@ -126,6 +126,15 @@
           </v-dialog>
         </v-layout>
       </template>
+      <template v-else-if="info.status === 'cancelled'">
+        <v-layout fill-height>
+          <v-layout row wrap align-center>
+            <v-flex class="text-xs-center body-1">
+              <div class="mb-5">Ваше замовлення було відмінено</div>
+            </v-flex>
+          </v-layout>
+        </v-layout>
+      </template>
     </template>
     <v-layout v-else fill-height>
       <v-layout row wrap align-center>
