@@ -63,25 +63,103 @@
 
     <template v-else-if="status === 'driving'">
       <v-layout fill-height column>
-        <googlemaps-map
-          ref="map"
-          :center.sync="center"
-          :zoom.sync="zoom"
-          :options="gmapsOptions"
-          style="flex: 100% 1 1;"
-        >
-          <googlemaps-marker
-            ref="markerDriver"
-            :position="{ lat: driver.latitude, lng: driver.longitude }"
-            label="Водій"
-          />
+        <v-progress-linear
+          :indeterminate="lastDistance === null"
+          :value="100 * (1 - lastDistance / order.total_distance)"
+          class="my-0"
+          color="primary"
+          height="3"
+        />
 
-          <googlemaps-marker
-            ref="markerTarget"
-            :position="{ lat: order.target.latitude, lng: order.target.longitude }"
-            label="Точка призначення"
-          />
-        </googlemaps-map>
+        <v-layout fill-height column class="content">
+          <v-fade-transition>
+            <div v-show="drivingTab === 0" class="content">
+              <googlemaps-map
+                ref="map"
+                :center.sync="center"
+                :zoom.sync="zoom"
+                :options="gmapsOptions"
+                style="flex: 100% 1 1;"
+              >
+                <googlemaps-marker
+                  ref="markerDriver"
+                  :position="{ lat: driver.latitude, lng: driver.longitude }"
+                  label="Водій"
+                />
+
+                <googlemaps-marker
+                  ref="markerTarget"
+                  :position="{ lat: order.target.latitude, lng: order.target.longitude }"
+                  label="Точка призначення"
+                />
+              </googlemaps-map>
+
+              <v-btn
+                :href="mapNavigationLink"
+                class="get-route-button"
+                color="primary"
+              >
+                Прокласти маршрут
+              </v-btn>
+            </div>
+          </v-fade-transition>
+
+          <v-fade-transition>
+            <v-form v-show="drivingTab === 1" class="mx-2">
+              <v-text-field
+                v-model="order.contact_name"
+                prepend-icon="person"
+                label="Ім'я"
+                readonly
+              />
+
+              <v-text-field
+                v-model="order.phone"
+                prepend-icon="local_phone"
+                label="Телефон"
+                readonly
+              />
+
+              <v-text-field
+                :value="(order.price / 100).toString()"
+                prepend-icon="credit_card"
+                label="До сплати"
+                suffix="₴"
+                readonly
+              />
+
+              <v-text-field
+                v-model="order.target.address"
+                prepend-icon="location_on"
+                label="Точка призначення"
+                readonly
+              />
+
+              <v-textarea
+                v-model="order.notes"
+                prepend-icon="notes"
+                label="Примітки щодо місця призначення"
+                readonly
+              />
+            </v-form>
+          </v-fade-transition>
+        </v-layout>
+
+        <v-bottom-nav
+          :active.sync="drivingTab"
+          style="margin-top: auto; transform: initial;"
+          color="transparent"
+        >
+          <v-btn flat color="primary">
+            <span>Карта</span>
+            <v-icon>place</v-icon>
+          </v-btn>
+
+          <v-btn flat color="primary">
+            <span>Інформація</span>
+            <v-icon>notes</v-icon>
+          </v-btn>
+        </v-bottom-nav>
       </v-layout>
     </template>
 
@@ -113,11 +191,20 @@ export default {
 
     driver: null,
     order: null,
+    lastDistance: null,
+    drivingTab: 0,
 
     status: 'loading',
 
     items: [],
   }),
+
+  computed: {
+    mapNavigationLink() {
+      const { latitude, longitude } = this.order.target
+      return `google.navigation:mode=d&q=${encodeURIComponent(latitude)},${encodeURIComponent(longitude)}`
+    },
+  },
 
   mounted() {
     this.$store.commit('setTitle', 'Водій')
@@ -146,12 +233,12 @@ export default {
           })
           this.currentLocation = { lat: latitude, lng: longitude }
 
-          delay(10000)
+          await delay(10000)
         } catch (e) {
           console.error(e)
           this.$toast.error('Не вдалося отримати ваше місцезнаходження')
 
-          delay(5000)
+          await delay(5000)
         }
       }
     })()
@@ -197,6 +284,9 @@ export default {
         bounds.extend(driverP)
         bounds.extend(targetP)
         this.$refs.map.$_map.fitBounds(bounds)
+
+        const distance = distanceBetweenTwoPoints(driverP, targetP)
+        this.lastDistance = distance
       })
     },
 
@@ -247,3 +337,22 @@ export default {
   },
 }
 </script>
+
+<style lang="stylus" scoped>
+.content
+  position relative
+  
+  >*
+    position absolute
+    left 0
+    top 0
+    right 0
+    bottom 0
+  
+  .get-route-button
+    top initial
+    left 50%
+    right initial
+    bottom 16px
+    transform translateX(-50%)
+</style>

@@ -32,6 +32,7 @@ import {
   VTabs,
   VSwitch,
   VRating,
+  VBottomNav,
 
   transitions,
 } from 'vuetify'
@@ -70,6 +71,7 @@ Vue.use(Vuetify, {
     VTabs,
     VSwitch,
     VRating,
+    VBottomNav,
 
     transitions,
   },

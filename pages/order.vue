@@ -24,6 +24,7 @@
           v-model="formattedPrice"
           prepend-icon="credit_card"
           label="До сплати"
+          suffix="₴"
           disabled
         />
 
