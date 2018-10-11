@@ -157,8 +157,7 @@
                 <v-spacer />
 
                 <v-btn
-                  color="red"
-                  dark
+                  color="error"
                   @click="cancelOrder"
                 >Скасувати</v-btn>
 
@@ -188,8 +187,6 @@
         </v-bottom-nav>
       </v-layout>
     </template>
-
-    <template v-else>ABC</template>
   </v-card>
 </template>
 
