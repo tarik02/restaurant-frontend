@@ -52,7 +52,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Склад</span>
+          <span class="headline">Кафе</span>
         </v-card-title>
 
         <v-card-text>
@@ -67,6 +67,12 @@
             />
 
             <!-- TODO: location -->
+            <v-text-field
+              :value="editItem.location.address || 'Точка на карті'"
+              label="Місцезнаходження"
+              readonly
+              @click="showLocationDialog()"
+            />
           </v-form>
         </v-card-text>
 
@@ -87,11 +93,11 @@
     <v-dialog v-model="deleteDialog" persistent max-width="500">
       <v-card>
         <v-card-title>
-          <span class="headline">Видалення складу</span>
+          <span class="headline">Видалення кафе</span>
         </v-card-title>
 
         <v-card-text>
-          Дійсьно бажаєте видалити склад "{{ editItem.name }}"
+          Дійсьно бажаєте видалити кафе "{{ editItem.name }}"
         </v-card-text>
 
         <v-card-actions>
@@ -107,11 +113,42 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="locationDialog.show"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card style="height: 100%;">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click.native="locationDialog.show = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Вибір точки на карті</v-toolbar-title>
+          <v-spacer />
+          <v-toolbar-items>
+            <v-btn
+              dark
+              flat
+              @click.native="locationDialog.show = false, updateLocation()"
+            >Вибрати</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <location-select-dialog
+          :target.sync="locationDialog.target"
+          :address.sync="locationDialog.address"
+          style="height: 100%;"
+        />
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
 import { LOCATION_DEFAULT } from '~/common/consts'
+import LocationSelectDialog from '~/components/location-select-dialog'
 
 const INITIAL_ITEM = {
   id: null,
@@ -120,6 +157,10 @@ const INITIAL_ITEM = {
 }
 
 export default {
+  components: {
+    LocationSelectDialog,
+  },
+
 	data: () => ({
     headers: [
       { text: 'Назва', sortable: false, value: 'name' },
@@ -136,6 +177,12 @@ export default {
     deleteDialog: false,
     editItem: { ...INITIAL_ITEM },
     editValid: true,
+
+    locationDialog: {
+      show: false,
+      target: null,
+      address: null,
+    },
 	}),
 
   watch: {
@@ -148,7 +195,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit('setTitle', 'Склади')
+    this.$store.commit('setTitle', 'Кафе')
   },
 
   methods: {
@@ -221,7 +268,6 @@ export default {
         this.$toast.success('Збережено')
 
         this.updateItems()
-        // this.$store.dispatch('operator/updateIngredients')
       } catch (e) {
         this.$toast.error('Помилка під час збереження')
       }
@@ -247,9 +293,24 @@ export default {
         this.$toast.success('Видалено')
 
         this.updateItems()
-        // this.$store.dispatch('operator/updateIngredients')
       } catch (e) {
         this.$toast.error('Помилка під час видалення')
+      }
+    },
+
+    showLocationDialog() {
+      this.locationDialog.address = this.editItem.location.address
+      this.locationDialog.lat = this.editItem.location.latitude
+      this.locationDialog.lng = this.editItem.location.longitude
+
+      this.locationDialog.show = true
+    },
+
+    updateLocation() {
+      this.editItem.location = {
+        address: this.locationDialog.address,
+        latitude: this.locationDialog.target.lat,
+        longitude: this.locationDialog.target.lng,
       }
     },
   },

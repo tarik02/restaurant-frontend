@@ -147,15 +147,22 @@ export default {
       }
       
       this.idleFirst = false
-      this.centerInCurrentLocation()
+
+      if (this.target) {
+        this.targetPrivate = this.target
+        this.$refs.map.panTo(this.target)
+        // this.zoom = 19
+      } else {
+        this.centerInCurrentLocation()
+      }
     },
 
     setMarker(e) {
       this.targetPrivate = e.latLng
       this.$refs.map.panTo(e.latLng)
-      if (this.zoom !== 19) {
-        this.zoom = 19
-      }
+      // if (this.zoom !== 19) {
+      //   this.zoom = 19
+      // }
     },
 
     updateMarkerPosition: _.debounce(function(newTarget) {
@@ -188,7 +195,7 @@ export default {
 
       this.targetPrivate = pos
       this.$refs.map.panTo(pos)
-      this.zoom = 19
+      // this.zoom = 19
     },
   },
 }

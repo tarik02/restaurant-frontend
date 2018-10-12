@@ -67,7 +67,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Товар складу</span>
+          <span class="headline">Товар кафе</span>
         </v-card-title>
 
         <v-card-text>
@@ -134,12 +134,12 @@
     <v-dialog v-model="deleteDialog" persistent max-width="500">
       <v-card>
         <v-card-title>
-          <span class="headline">Видалення товару зі складу</span>
+          <span class="headline">Видалення товару з кафе</span>
         </v-card-title>
 
         <v-card-text>
           Дійсьно бажаєте видалити товар "{{ editItem.ingredient && editItem.ingredient.title }}"
-          <template v-if="storage"> зі складу "{{ storage.name }}"</template>
+          <template v-if="storage"> з кафе "{{ storage.name }}"</template>
         </v-card-text>
 
         <v-card-actions>
@@ -220,7 +220,7 @@ export default {
 
     headers() {
       return _.filter([
-        this.old ? { text: 'Склад', sortable: false, value: 'storage.id' } : null,
+        this.old ? { text: 'Кафе', sortable: false, value: 'storage.id' } : null,
         { text: 'Інгредієнт', sortable: false, value: 'ingredient_id' },
         { text: 'Придатний до', sortable: true, value: 'best_by' },
         { text: 'Залишилося/кількість', sortable: true, value: 'remaining' },
@@ -257,7 +257,7 @@ export default {
     if (this.storage === null) {
       this.$store.commit('setTitle', 'Старі товари')
     } else {
-      this.$store.commit('setTitle', `Склад '${this.storage.name}'`)
+      this.$store.commit('setTitle', `Кафе '${this.storage.name}'`)
     }
   },
 
