@@ -47,7 +47,7 @@ export const mutations = {
 export const actions = {
   async init({ commit, state }) {
     _(state.accounts)
-      .map(async (account, id) => {
+      .map((account, id) => {
         if (account.lastDataUpdate) {
           const diff = moment.duration(
             moment().diff(moment.unix(account.lastDataUpdate))
