@@ -145,6 +145,16 @@
             <v-list-tile-content><v-list-tile-title>Корзина</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
 
+          <template v-if="account && account.data.roles.includes('cook')">
+            <v-divider />
+
+            <v-subheader>Кухар</v-subheader>
+            <v-list-tile :to="{ name: 'cook-dashboard' }">
+              <v-list-tile-action><v-icon>kitchen</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Кухня</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
+
           <template v-if="account && account.data.roles.includes('driver')">
             <v-divider />
 

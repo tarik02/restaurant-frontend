@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" flat>
+  <v-card height="100%" flat class="overflow-y: auto;">
     <v-card-title>
       <v-select
         v-model="filter.status"

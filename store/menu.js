@@ -7,6 +7,8 @@ export const state = () => ({
 export const getters = {
   cartCourses: ({ courses }, {}, {}, { 'cart/countOf': countOf }) =>
     courses.filter(({ id }) => countOf(id) > 0),
+
+  coursesById: state => _.mapKeys(state.courses, 'id'),
 }
 
 export const mutations = {
