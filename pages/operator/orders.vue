@@ -18,6 +18,7 @@
       :pagination.sync="pagination"
       :total-items="totalItems"
       :loading="loading"
+      :rows-per-page-items="[10, 25, 100]"
       class="elevation-1"
 
     >
