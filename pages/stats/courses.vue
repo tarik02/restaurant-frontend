@@ -4,7 +4,7 @@
       :headers="headers"
       :items="items"
       :loading="false"
-      :rows-per-page-items="[]"
+      :rows-per-page-items="[-1]"
       class="elevation-1"
     >
       <template slot="items" slot-scope="{ item }">
