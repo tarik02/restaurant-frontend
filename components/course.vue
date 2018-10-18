@@ -14,7 +14,10 @@
           <v-container fill-height fluid>
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
-                <span class="headline grey--text text--lighten-5">{{ course.title }}</span>
+                <span
+                  class="headline"
+                  style="color: black;"
+                >{{ course.title }}</span>
               </v-flex>
             </v-layout>
           </v-container>
