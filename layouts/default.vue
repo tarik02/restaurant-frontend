@@ -234,6 +234,16 @@
               <v-list-tile-content><v-list-tile-title>Відгуки</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
           </template>
+
+          <template v-if="account && account.data.roles.includes('stats')">
+            <v-divider />
+
+            <v-subheader>Статистика</v-subheader>
+            <v-list-tile :to="{ name: 'stats-courses' }">
+              <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Страви</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
         </template>
       </v-list>
     </draggable-navigation-drawer>
