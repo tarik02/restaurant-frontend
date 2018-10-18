@@ -70,7 +70,7 @@
       <template slot="items" slot-scope="{ item }">
         <td><router-link :to="item.source.link">{{ item.source.title }}</router-link></td>
         <td><router-link :to="item.target.link">{{ item.target.title }}</router-link></td>
-        <td>{{ (item.user && item.user.username) || '-' }}</td>
+        <td>{{ (item.user && item.user.username) || 'Анонім' }}</td>
         <td>
           <div
             v-if="item.text"
