@@ -108,6 +108,7 @@ module.exports = {
     '~/plugins/driver-tracker.js',
     '~/plugins/html-substring.js',
     '~/plugins/resources.js',
+    '~/plugins/morris.js',
   ],
 
   css: [
@@ -149,6 +150,7 @@ module.exports = {
       '~/plugins/driver-tracker.js',
       '~/plugins/html-substring.js',
       '~/plugins/resources.js',
+      '~/plugins/morris.js',
     ],
 
     extractCSS: true,
@@ -162,6 +164,8 @@ module.exports = {
           exclude: /(node_modules)/,
         })
       }
+
+      config.resolve.alias['jquery'] = 'jquery/src/jquery.js'
 
       if (ctx.isServer) {
         config.externals = [
