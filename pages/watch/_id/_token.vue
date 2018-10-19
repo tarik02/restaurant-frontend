@@ -23,6 +23,17 @@
           </v-layout>
         </v-layout>
       </template>
+      <template v-else-if="info.status === 'waiting_for_driver'">
+        <v-layout fill-height>
+          <v-layout row wrap align-center>
+            <v-flex class="text-xs-center body-1">
+              <div class="mb-5">Ваше замовлення очікує водія</div>
+              <br />
+              <v-progress-circular indeterminate color="primary" />
+            </v-flex>
+          </v-layout>
+        </v-layout>
+      </template>
       <template v-else-if="info.status === 'inroad'">
         <v-layout fill-height column>
           <v-progress-linear
