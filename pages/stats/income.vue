@@ -61,7 +61,7 @@ export default {
   data: () => ({
     data: {},
 
-    dayOfWeek: true,
+    dayOfWeek: false,
     since: null,
     until: null,
   }),
