@@ -243,6 +243,10 @@
               <v-list-tile-action><v-icon>reorder</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Страви</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
+            <v-list-tile :to="{ name: 'stats-income' }">
+              <v-list-tile-action><v-icon>attach_money</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Дохід</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
           </template>
         </template>
       </v-list>

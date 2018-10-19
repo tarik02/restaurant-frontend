@@ -6,11 +6,15 @@ const currency = value => `${isNaN(value) ? '' : (value / 100)}${CURRENCY_SYMBOL
 currency.__toString = () => CURRENCY_SYMBOL
 
 Vue.mixin({
-	filters: {
-		currency,
-	},
+  filters: {
+    currency,
+  },
 
-	methods: {
-		$currency: currency,
-	},
+  computed: {
+    CURRENCY_SYMBOL: () => CURRENCY_SYMBOL,
+  },
+
+  methods: {
+    $currency: currency,
+  },
 })

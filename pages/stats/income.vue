@@ -31,16 +31,17 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="{ item }">
-        <td>{{ item.course.title }}</td>
-        <td v-for="(date, key) in dates" :key="key">{{ item[key] || '0' }}</td>
+        <td>{{ item.day }}</td>
+        <td>{{ item.income }}{{ CURRENCY_SYMBOL }}</td>
       </template>
     </v-data-table>
 
     <bar-chart
-      id="chart"
-      :data="chartData"
-      :ykeys="chartCourses"
-      :labels="chartLabels"
+      id="chart2"
+      :post-units="CURRENCY_SYMBOL"
+      :data="items"
+      :labels="['Дохід']"
+      :ykeys="['income']"
       xkey="day"
       grid
       grid-text-weight="bold"
@@ -60,7 +61,7 @@ export default {
   data: () => ({
     data: {},
 
-    dayOfWeek: false,
+    dayOfWeek: true,
     since: null,
     until: null,
   }),
@@ -75,69 +76,38 @@ export default {
         return _.range(1, 8)
       }
 
-      const range = {}
-      let i = 0
+      const range = []
       for (let date = moment(this.since); date.diff(this.until, 'days') <= 0; date.add(1, 'day')) {
-        range[date.format('YYYY-MM-DD')] = date.clone()
+        range.push(date.clone())
       }
       return range
-    },
-
-    courses() {
-      return _(this.data)
-        .keys()
-        .map(it => parseInt(it))
-        .map(it => [it, this.coursesById[it]])
-        .fromPairs()
-        .value()
     },
 
     headers() {
       return [
         {
-          text: '',
+          text: 'День',
           sortable: false,
         },
-        ..._.map(this.dates, it => ({
-          text: this.dayOfWeek ? DAYS_OF_WEEK[it - 1] : it.format(DATETIME_PLAIN_DAY),
+        {
+          text: 'Дохід',
           sortable: false,
-        })),
+        },
       ]
     },
 
     items() {
-      return _(this.data)
-        .map((dates, courseId) => ({
-          course: this.coursesById[courseId],
-          ...dates,
+      return _.map(this.dates,
+        this.dayOfWeek
+        ? (key => ({
+          day: DAYS_OF_WEEK[key - 1],
+          income: (this.data[key] || 0) / 100,
         }))
-        .value()
-    },
-
-    chartCourses() {
-      return _.keys(this.courses)
-    },
-
-    chartLabels() {
-      return _.map(this.courses, course => course.title)
-    },
-
-    chartData() {
-      const entries = {}
-      for (const [course, dates] of _.toPairs(this.data)) {
-        for (const [key, date] of _.toPairs(this.dates)) {
-          let entry = entries[key]
-          if (!entry) {
-            entry = entries[key] = {
-              day: this.dayOfWeek ? DAYS_OF_WEEK[date - 1] : date.format(DATETIME_PLAIN_DAY),
-            }
-          }
-          
-          entry[course] = dates[key] || 0
-        }
-      }
-
-      return _.values(entries)
+        : (key => ({
+          day: key.format(DATETIME_PLAIN_DAY),
+          income: (this.data[key.format('YYYY-MM-DD')] || 0) / 100,
+        }))
+      )
     },
   },
 
@@ -169,7 +139,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit('setTitle', 'Статистика по стравах')
+    this.$store.commit('setTitle', 'Статистика по доходу')
 
     this.updateData()
   },
@@ -181,7 +151,7 @@ export default {
     },
 
     loadData: _.debounce(async function () {
-      this.data = await this.$axios.$get('/stats/courses', {
+      this.data = await this.$axios.$get('/stats/income', {
         params: {
           dayOfWeek: this.dayOfWeek,
           since: this.since.format(),
@@ -192,4 +162,3 @@ export default {
   },
 }
 </script>
-
