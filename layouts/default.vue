@@ -145,6 +145,11 @@
             <v-list-tile-content><v-list-tile-title>Корзина</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
 
+          <v-list-tile :to="{ name: 'about' }" nuxt>
+            <v-list-tile-action><v-icon>account_box</v-icon></v-list-tile-action>
+            <v-list-tile-content><v-list-tile-title>Про нас</v-list-tile-title></v-list-tile-content>
+          </v-list-tile>
+
           <template v-if="account && account.data.roles.includes('cook')">
             <v-divider />
 
