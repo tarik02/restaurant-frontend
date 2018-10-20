@@ -1,6 +1,6 @@
 <template>
   <p class="pa-4">
-    Copyright 2018 @ Tarik02 (Тарас Фомін) @ Всі права захищено
+    YoungRestaurant Copyright (C) 2018 @ Tarik02 (Тарас Фомін)
 
     <br />
     <v-btn href="https://github.com/Tarik02/restaurant-frontend">Фронтенд</v-btn>
