@@ -158,10 +158,6 @@ export default {
     },
   },
 
-  async fetch({ store, params }) {
-    // await store.dispatch('menu/initCourses')
-  },
-
   created() {
     this.since = moment().startOf('day').add(-10, 'day')
     this.until = moment().startOf('day')

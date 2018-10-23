@@ -252,9 +252,13 @@
               <v-list-tile-action><v-icon>attach_money</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Дохід</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{ name: 'stats-ingredients' }">
+            <v-list-tile :to="{ name: 'stats-ingredients-used' }">
               <v-list-tile-action><v-icon>code</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Використані інгредієнти</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: 'stats-ingredients-outdated' }">
+              <v-list-tile-action><v-icon>access_time</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Терміни придатності</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
           </template>
         </template>
