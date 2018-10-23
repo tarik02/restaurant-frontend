@@ -31,18 +31,16 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="{ item }">
-        <td>{{ item.day }}</td>
-        <td>{{ item.income }}{{ CURRENCY_SYMBOL }}</td>
+        <td>{{ item.ingredient }}</td>
+        <td v-for="(date, key) in dates" :key="key">{{ item[key] || '-' }}</td>
       </template>
     </v-data-table>
 
-    <component
+    <bar-chart
       id="chart"
-      :is="dayOfWeek ? 'bar-chart' : 'line-chart'"
-      :post-units="CURRENCY_SYMBOL"
-      :data="items"
-      :labels="['Дохід']"
-      :ykeys="['income']"
+      :data="chartData"
+      :ykeys="chartIngredients"
+      :labels="chartLabels"
       xkey="day"
       grid
       grid-text-weight="bold"
@@ -68,47 +66,77 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      coursesById: 'menu/coursesById',
-    }),
-
     dates() {
       if (this.dayOfWeek) {
         return _.range(1, 8)
       }
 
-      const range = []
+      const range = {}
+      let i = 0
       for (let date = moment(this.since); date.diff(this.until, 'days') <= 0; date.add(1, 'day')) {
-        range.push(date.clone())
+        range[date.format('YYYY-MM-DD')] = date.clone()
       }
       return range
+    },
+
+    ingredients() {
+      return _(this.data)
+        .keys()
+        .map(it => it)
+        .value()
     },
 
     headers() {
       return [
         {
-          text: 'День',
+          text: '',
           sortable: false,
         },
-        {
-          text: 'Дохід',
+        ..._.map(this.dates, it => ({
+          text: this.dayOfWeek ? DAYS_OF_WEEK[it - 1] : it.format(DATETIME_PLAIN_DAY),
           sortable: false,
-        },
+        })),
       ]
     },
 
     items() {
-      return _.map(this.dates,
-        this.dayOfWeek
-        ? (key => ({
-          day: DAYS_OF_WEEK[key - 1],
-          income: (this.data[key] || 0) / 100,
+      return _(this.data)
+        .map((dates, ingredientId) => ({
+          ingredient: ingredientId,
+          ..._.mapValues(dates, ({ count, unit }) => count === 0 ? '-' : `${count} ${unit}`.trim()),
         }))
-        : (key => ({
-          day: key.format(DATETIME_PLAIN_DAY),
-          income: (this.data[key.format('YYYY-MM-DD')] || 0) / 100,
-        }))
-      )
+        .value()
+    },
+
+    chartIngredients() {
+      return this.ingredients
+    },
+
+    chartLabels() {
+      return this.chartIngredients
+    },
+
+    chartData() {
+      const entries = {}
+      for (const [ingredient, dates] of _.toPairs(this.data)) {
+        for (const [key, date] of _.toPairs(this.dates)) {
+          let entry = entries[key]
+          if (!entry) {
+            entry = entries[key] = {
+              day: this.dayOfWeek ? DAYS_OF_WEEK[date - 1] : date.format(DATETIME_PLAIN_DAY),
+            }
+          }
+
+          const {
+            count = 0,
+            unit = null,
+          } = dates[key] || {} 
+          
+          entry[ingredient] = count
+        }
+      }
+
+      return _.values(entries)
     },
   },
 
@@ -131,7 +159,7 @@ export default {
   },
 
   async fetch({ store, params }) {
-    await store.dispatch('menu/initCourses')
+    // await store.dispatch('menu/initCourses')
   },
 
   created() {
@@ -140,7 +168,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit('setTitle', 'Статистика доходу')
+    this.$store.commit('setTitle', 'Статистика використаних інгредієнтів')
 
     this.updateData()
   },
@@ -152,7 +180,7 @@ export default {
     },
 
     loadData: _.debounce(async function () {
-      this.data = await this.$axios.$get('/stats/income', {
+      this.data = await this.$axios.$get('/stats/ingredients', {
         params: {
           dayOfWeek: this.dayOfWeek,
           since: this.since.format(),

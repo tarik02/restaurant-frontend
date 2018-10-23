@@ -169,7 +169,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit('setTitle', 'Статистика по стравах')
+    this.$store.commit('setTitle', 'Статистика страв')
 
     this.updateData()
   },
