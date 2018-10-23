@@ -36,8 +36,9 @@
       </template>
     </v-data-table>
 
-    <line-chart
+    <component
       id="chart"
+      :is="dayOfWeek ? 'bar-chart' : 'line-chart'"
       :post-units="CURRENCY_SYMBOL"
       :data="items"
       :labels="['Дохід']"
