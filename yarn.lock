@@ -3611,10 +3611,10 @@ html-minifier@^3.2.3, html-minifier@^3.5.9:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
-html-substring@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/html-substring/-/html-substring-1.2.0.tgz#6dfbea79cc0e620fb19b21b17fb43a2a35068b8e"
-  integrity sha512-ZQiukLganzrJmsZweRS1egY4EjRSPxqgIrRYUdnYupoyNycxUBmQIkAwo8/bAphbklJL6fvl2OOasFrjPlr8ug==
+html-substring@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/html-substring/-/html-substring-1.3.0.tgz#bead2ecf5f2b2606e925ffce71fec99095a71410"
+  integrity sha512-5AK6iCOkHfqEr1zQvArss3qlkesK3QwAWOAOBC943JXomm1gROqOts6rJ1T2rMZx6/Nvn1CFLPX2G+DQLvx5sw==
 
 html-tags@^2.0.0:
   version "2.0.0"
