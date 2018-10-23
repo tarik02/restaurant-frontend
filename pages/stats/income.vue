@@ -37,7 +37,7 @@
     </v-data-table>
 
     <line-chart
-      id="chart2"
+      id="chart"
       :post-units="CURRENCY_SYMBOL"
       :data="items"
       :labels="['Дохід']"
