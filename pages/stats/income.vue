@@ -36,7 +36,7 @@
       </template>
     </v-data-table>
 
-    <bar-chart
+    <line-chart
       id="chart2"
       :post-units="CURRENCY_SYMBOL"
       :data="items"
