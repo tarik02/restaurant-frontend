@@ -145,6 +145,14 @@ export default {
   created() {
     this.since = moment().startOf('day').add(-10, 'day')
     this.until = moment().startOf('day')
+
+    const { since, until } = this.$route.query
+    if (since) {
+      this.since = moment(since).startOf('day')
+    }
+    if (until) {
+      this.until = moment(until).startOf('day')
+    }
   },
 
   mounted() {
@@ -155,6 +163,14 @@ export default {
 
   methods: {
     async updateData() {
+      this.$router.replace({
+        name: 'stats-income',
+        query: {
+          since: this.since.format('YYYY-MM-DD'),
+          until: this.until.format('YYYY-MM-DD'),
+        },
+      })
+
       this.data = {}
       await this.loadData()
     },
