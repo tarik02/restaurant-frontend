@@ -164,7 +164,7 @@ export default {
   methods: {
     async updateData() {
       this.$router.replace({
-        name: 'stats-income',
+        name: 'stats-ingredients-outdated',
         query: {
           since: this.since.format('YYYY-MM-DD'),
           until: this.until.format('YYYY-MM-DD'),

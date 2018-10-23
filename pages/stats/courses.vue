@@ -188,14 +188,14 @@ export default {
   methods: {
     async updateData() {
       this.$router.replace({
-        name: 'stats-income',
+        name: 'stats-courses',
         query: {
           'day-of-week': this.dayOfWeek,
           since: this.since.format('YYYY-MM-DD'),
           until: this.until.format('YYYY-MM-DD'),
         },
       })
-      
+
       this.data = {}
       await this.loadData()
     },
