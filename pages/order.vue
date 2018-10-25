@@ -38,7 +38,7 @@
         <v-textarea
           v-model="targetNotes"
           prepend-icon="notes"
-          label="Примітки пол місце призначення"
+          label="Примітки про місце призначення"
         />
       </v-form>
 
