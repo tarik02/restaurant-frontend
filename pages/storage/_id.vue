@@ -68,7 +68,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Товар кафе</span>
+          <span class="headline">Продукт кафе</span>
         </v-card-title>
 
         <v-card-text>
@@ -135,11 +135,11 @@
     <v-dialog v-model="deleteDialog" persistent max-width="500">
       <v-card>
         <v-card-title>
-          <span class="headline">Видалення товару з кафе</span>
+          <span class="headline">Видалення продукту з кафе</span>
         </v-card-title>
 
         <v-card-text>
-          Дійсьно бажаєте видалити товар "{{ editItem.ingredient && editItem.ingredient.title }}"
+          Дійсьно бажаєте видалити продукт "{{ editItem.ingredient && editItem.ingredient.title }}"
           <template v-if="storage"> з кафе "{{ storage.name }}"</template>
         </v-card-text>
 
@@ -256,7 +256,7 @@ export default {
 
   mounted() {
     if (this.storage === null) {
-      this.$store.commit('setTitle', 'Старі товари')
+      this.$store.commit('setTitle', 'Старі продукти')
     } else {
       this.$store.commit('setTitle', `Кафе '${this.storage.name}'`)
     }
