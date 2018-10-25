@@ -51,12 +51,33 @@
             style="font-size: 20px;"
           >Ролі</div>
 
-          <v-checkbox
-            v-for="(label, value) in roles"
-            v-model="rolesDialog.roles[value]"
-            :key="value"
-            :label="label"
-          />
+          <v-form>
+            <v-layout
+              v-for="(label, value) in roles"
+              :key="value"
+              row
+            >
+              <v-checkbox
+                v-model="rolesDialog.roles[value]"
+                :label="label"
+                style="flex-grow: 0; width: 200px;"
+              />
+
+              <v-select
+                v-if="value === 'cook'"
+                v-model="additonal.storageId"
+                :disabled="!rolesDialog.roles[value]"
+                :items="storages"
+                :item-value="({ id }) => id"
+                :item-text="({ name }) => name"
+                label="Кафе"
+                single-line
+                hide-details
+                style="flex-grow: 0;"
+                required="rolesDialog.roles[value]"
+              />
+            </v-layout>
+          </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -81,9 +102,14 @@ import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
 import { resource } from '~/common/resources'
 
+const ADDITONAL_DEFAULT = {
+  storageId: null,
+}
+
 export default {
   data: () => ({
     roles: {},
+    storages: [],
 
     items: [],
     loading: true,
@@ -93,6 +119,10 @@ export default {
     },
     filter: {
       roles: [],
+    },
+
+    additonal: {
+      ...ADDITONAL_DEFAULT,
     },
 
     rolesDialog: {
@@ -153,7 +183,7 @@ export default {
       const { page, rowsPerPage } = this.pagination
 
       try {
-        const { roles, data, meta: { totalCount } } = await this.$axios.$get(
+        const { roles, storages, data, meta: { totalCount } } = await this.$axios.$get(
           '/operator/users',
           {
             params: {
@@ -165,6 +195,7 @@ export default {
           }
         )
 
+        this.storages = storages
         this.roles = roles
 
         this.items = _.map(data, ({
@@ -194,10 +225,16 @@ export default {
     openRolesEdit(item) {
       this.rolesDialog.open = true
       this.rolesDialog.item = item
-      this.rolesDialog.roles = _(this.roles)
+      const roles = this.rolesDialog.roles = _(this.roles)
         .map((label, role) => [role, item.roles.indexOf(role) !== -1])
         .fromPairs()
         .value()
+      this.additonal = {
+        ...ADDITONAL_DEFAULT,
+      }
+      if (roles['cook']) {
+        this.additonal.storageId = item.additonal['storage_id']
+      }
     },
 
     async saveRoles() {
@@ -209,9 +246,13 @@ export default {
       try {
         this.$toast.show('Збереження...')
 
-        const result = await this.$axios.$post(`/operator/users/${this.rolesDialog.item.id}/roles`, {
+        const request = {
           roles,
-        })
+        }
+        if (roles.indexOf('cook') !== -1) {
+          request['storage_id'] = this.additonal.storageId
+        }
+        const result = await this.$axios.$post(`/operator/users/${this.rolesDialog.item.id}/roles`, request)
         if (result.status !== 'ok') {
           throw new Error('Status is not ok')
         }
