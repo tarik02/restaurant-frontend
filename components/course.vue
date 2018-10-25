@@ -1,8 +1,10 @@
 <template>
   <v-flex
+    xs12
     sm12
-    xs4
     md4
+    lg4
+    xl4
     style="flex: 1 0 auto; display: flex; flex-direction: column;"
   >
     <v-card style="display: flex; flex-direction: column; height: 100%;">
