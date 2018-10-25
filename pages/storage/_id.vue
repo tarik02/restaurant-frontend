@@ -51,6 +51,7 @@
     </v-data-table>
 
     <v-btn
+      v-if="storage"
       color="primary"
       fab
       fixed
@@ -59,7 +60,7 @@
       @click="newOpen"
     ><v-icon>add</v-icon></v-btn>
 
-    <v-btn fab style="visibility: hidden;" />
+    <v-btn v-if="storage" fab style="visibility: hidden;" />
 
     <v-dialog
       v-model="editDialog"
