@@ -184,6 +184,14 @@ module.exports = {
       }
 
       config.plugins.push(new IgnorePlugin(/^\.\/locale$/, /moment$/))
+      config.module.rules.push({
+        test: /\.pdf$/,
+        loader: 'url-loader',
+        query: {
+          limit: 1000, // 1 KO
+          name: 'pdfs/[name].[hash:7].[ext]',
+        }
+      })
     },
   },
 }
