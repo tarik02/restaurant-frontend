@@ -8,10 +8,10 @@
         <course v-for="(course) in courses" :course="course" :key="course.id">
           <template slot="buttons">
             <div>
-              <v-btn color="primary" dark @click="editCourse(course)">
+              <v-btn color="primary" small dark @click="editCourse(course)">
                 Редагувати
               </v-btn>
-              <v-btn color="red" dark @click="deleteCourse(course)">
+              <v-btn color="red" small dark @click="deleteCourse(course)">
                 Видалити
               </v-btn>
             </div>

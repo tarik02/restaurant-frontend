@@ -1,34 +1,36 @@
 <template>
-  <v-flex xs12>
-    <v-card>
+  <v-flex
+    sm12
+    xs4
+    md4
+    style="flex: 1 0 auto; display: flex; flex-direction: column;"
+  >
+    <v-card style="display: flex; flex-direction: column; height: 100%;">
       <v-carousel
         :hide-controls="course.images.length === 1"
         :cycle="false"
         hide-delimiters
+        style="height: 200px;"
       >
         <v-carousel-item
           v-for="(image, i) in course.images"
           :key="i"
           :src="image | uploaded"
-        >
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span
-                  class="headline"
-                  style="color: black;"
-                >{{ course.title }}</span>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-carousel-item>
+        />
       </v-carousel>
 
-      <v-card-title>
+      <v-card-title style="display: block;">
+        <div
+          class="headline mb-1"
+          style="color: black;"
+        >{{ course.title }}</div>
+        
         <div>
           <span>{{ course.description }}</span>
         </div>
       </v-card-title>
+
+      <v-spacer />
 
       <v-card-actions>
         <slot name="actions">
