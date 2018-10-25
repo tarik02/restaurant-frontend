@@ -129,10 +129,10 @@
             <v-list-tile-content><v-list-tile-title>Додати обліковий запис</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile :to="{ name: 'account-manage' }" nuxt @click="accountMenu = false">
+          <!-- <v-list-tile :to="{ name: 'account-manage' }" nuxt @click="accountMenu = false">
             <v-list-tile-action><v-icon>settings</v-icon></v-list-tile-action>
             <v-list-tile-content><v-list-tile-title>Керувати обліковими записами</v-list-tile-title></v-list-tile-content>
-          </v-list-tile>
+          </v-list-tile> -->
         </template>
         <template v-else>
           <v-list-tile :to="{ name: 'menu' }" nuxt>
