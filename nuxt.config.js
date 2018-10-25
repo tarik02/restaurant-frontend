@@ -109,6 +109,7 @@ module.exports = {
     '~/plugins/html-substring.js',
     '~/plugins/resources.js',
     '~/plugins/morris.js',
+    '~/plugins/lodash.js',
   ],
 
   css: [
@@ -151,6 +152,7 @@ module.exports = {
       '~/plugins/html-substring.js',
       '~/plugins/resources.js',
       '~/plugins/morris.js',
+      '~/plugins/lodash.js',
     ],
 
     extractCSS: true,

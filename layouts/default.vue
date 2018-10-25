@@ -222,18 +222,10 @@
               <v-list-tile-action><v-icon>restaurant_menu</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Інгредієнти</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
-            <!-- <v-list-tile :to="{ name: 'operator-drivers' }">
-              <v-list-tile-action><v-icon>directions_car</v-icon></v-list-tile-action>
-              <v-list-tile-content><v-list-tile-title>Водії</v-list-tile-title></v-list-tile-content>
+            <v-list-tile :to="{ name: 'operator-users' }">
+              <v-list-tile-action><v-icon>supervisor_account</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Користувачі</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{ name: 'operator-storage' }">
-              <v-list-tile-action><v-icon>store</v-icon></v-list-tile-action>
-              <v-list-tile-content><v-list-tile-title>Склад</v-list-tile-title></v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{ name: 'operator-statistic' }">
-              <v-list-tile-action><v-icon>table_chart</v-icon></v-list-tile-action>
-              <v-list-tile-content><v-list-tile-title>Статистика</v-list-tile-title></v-list-tile-content>
-            </v-list-tile> -->
           </template>
 
           <template v-if="account && account.data.roles.includes('reviews')">
