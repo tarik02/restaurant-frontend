@@ -273,6 +273,15 @@ export default {
     },
   },
 
+  async fetch({ redirect, store }) {
+    try {
+      await store.dispatch('menu/initCourses')
+      redirect(301, '/index')
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
   mounted() {
     this.$store.commit('setTitle', 'Інсталяція')
   },
@@ -289,8 +298,45 @@ export default {
         operator: this.operator,
       }
 
-      const response = await this.$axios.$post('/install', request)
-      console.log(response)
+      try {
+        const response = await this.$axios.$post('/install', request)
+
+        this.$toast.show('Інсталяція...')
+        if (response.status === 'ok') {
+          await this.$store.dispatch('accounts/login', {
+            username: this.operator.username,
+            password: this.operator.password,
+          })
+
+          this.$router.push({ name: 'index' })
+
+          this.$toast.success('Інсталяція виконана успішно!')
+        } else {
+          switch (response.reason) {
+          case 'installed':
+            this.$toast.show('Інсталяція уже була виконана')
+
+            this.$router.push({ name: 'index' })
+            break
+          case 'wrong-db-connection':
+            this.$toast.error('Невідомий тип БД')
+            break
+          case 'wrong-db-credentials':
+            this.$toast.error('Неправильні реквізити доступу до БД')
+            break
+          case 'user-exists':
+            this.$toast.error('Користувач з таким даними вже існує')
+            break
+          case 'exception':
+          default:
+            throw new Error(response.reason)
+          }
+        }
+      } catch (e) {
+        console.error(e)
+
+        this.$toast.error('Помилка інсталяції')
+      }
     },
   },
 }
