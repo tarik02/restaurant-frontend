@@ -23,31 +23,74 @@
       </v-layout>
     </v-card-title>
 
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :loading="false"
-      :rows-per-page-items="[-1]"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="{ item }">
-        <td>{{ item.day }}</td>
-        <td>{{ item.income }}{{ CURRENCY_SYMBOL }}</td>
-      </template>
-    </v-data-table>
+    <v-card-actions>
+      <v-spacer />
 
-    <component
-      id="chart"
-      :is="dayOfWeek ? 'bar-chart' : 'line-chart'"
-      :post-units="CURRENCY_SYMBOL"
-      :data="items"
-      :labels="['Дохід']"
-      :ykeys="['income']"
-      xkey="day"
-      grid
-      grid-text-weight="bold"
-      resize
-    />
+      <v-btn color="primary" @click="tableDialog = true">Таблиця</v-btn>
+      <v-btn color="primary" @click="chartDialog = true">Графік</v-btn>
+    </v-card-actions>
+
+    <v-dialog v-model="tableDialog" :fullscreen="$vuetify.breakpoint.mdAndDown">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-icon>table_chart</v-icon>
+          <v-toolbar-title>Таблиця</v-toolbar-title>
+
+          <v-spacer />
+
+          <v-toolbar-items>
+            <v-btn dark flat @click="tableDialog = false">Закрити</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <v-card-text>
+          <v-data-table
+            v-if="tableDialog"
+            :headers="headers"
+            :items="items"
+            :loading="false"
+            :rows-per-page-items="[-1]"
+            class="elevation-1"
+          >
+            <template slot="items" slot-scope="{ item }">
+              <td>{{ item.day }}</td>
+              <td>{{ item.income }}{{ CURRENCY_SYMBOL }}</td>
+            </template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="chartDialog" :fullscreen="$vuetify.breakpoint.mdAndDown">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-icon>bar_chart</v-icon>
+          <v-toolbar-title>Графік</v-toolbar-title>
+
+          <v-spacer />
+
+          <v-toolbar-items>
+            <v-btn dark flat @click="chartDialog = false">Закрити</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <v-card-text>
+          <component
+            v-if="chartDialog"
+            id="chart"
+            :is="dayOfWeek ? 'bar-chart' : 'line-chart'"
+            :post-units="CURRENCY_SYMBOL"
+            :data="items"
+            :labels="['Дохід']"
+            :ykeys="['income']"
+            xkey="day"
+            grid
+            grid-text-weight="bold"
+            resize
+          />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -65,6 +108,9 @@ export default {
     dayOfWeek: false,
     since: null,
     until: null,
+
+    tableDialog: false,
+    chartDialog: false,
   }),
 
   computed: {

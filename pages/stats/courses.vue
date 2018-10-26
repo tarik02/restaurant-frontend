@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" flat style="margin-bottom: 24px;">
+  <v-card height="100%" flat>
     <v-card-title>
       <v-checkbox
         v-model="dayOfWeek"
@@ -23,29 +23,72 @@
       </v-layout>
     </v-card-title>
 
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :loading="false"
-      :rows-per-page-items="[-1]"
-      class="elevation-1"
-    >
-      <template slot="items" slot-scope="{ item }">
-        <td>{{ item.course.title }}</td>
-        <td v-for="(date, key) in dates" :key="key">{{ item[key] || '0' }}</td>
-      </template>
-    </v-data-table>
+    <v-card-actions>
+      <v-spacer />
 
-    <bar-chart
-      id="chart"
-      :data="chartData"
-      :ykeys="chartCourses"
-      :labels="chartLabels"
-      xkey="day"
-      grid
-      grid-text-weight="bold"
-      resize
-    />
+      <v-btn color="primary" @click="tableDialog = true">Таблиця</v-btn>
+      <v-btn color="primary" @click="chartDialog = true">Графік</v-btn>
+    </v-card-actions>
+
+    <v-dialog v-model="tableDialog" :fullscreen="$vuetify.breakpoint.mdAndDown">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-icon>table_chart</v-icon>
+          <v-toolbar-title>Таблиця</v-toolbar-title>
+
+          <v-spacer />
+
+          <v-toolbar-items>
+            <v-btn dark flat @click="tableDialog = false">Закрити</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <v-card-text>
+          <v-data-table
+            v-if="tableDialog"
+            :headers="headers"
+            :items="items"
+            :loading="false"
+            :rows-per-page-items="[-1]"
+            class="elevation-1"
+          >
+            <template slot="items" slot-scope="{ item }">
+              <td>{{ item.course.title }}</td>
+              <td v-for="(date, key) in dates" :key="key">{{ item[key] || '0' }}</td>
+            </template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="chartDialog" :fullscreen="$vuetify.breakpoint.mdAndDown">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-icon>bar_chart</v-icon>
+          <v-toolbar-title>Графік</v-toolbar-title>
+
+          <v-spacer />
+
+          <v-toolbar-items>
+            <v-btn dark flat @click="chartDialog = false">Закрити</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+
+        <v-card-text>
+          <bar-chart
+            v-if="chartDialog"
+            id="chart"
+            :data="chartData"
+            :ykeys="chartCourses"
+            :labels="chartLabels"
+            xkey="day"
+            grid
+            grid-text-weight="bold"
+            resize
+          />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -63,6 +106,9 @@ export default {
     dayOfWeek: false,
     since: null,
     until: null,
+
+    tableDialog: false,
+    chartDialog: false,
   }),
 
   computed: {
