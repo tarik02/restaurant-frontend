@@ -33,6 +33,7 @@ import {
   VSwitch,
   VRating,
   VBottomNav,
+  VStepper,
 
   transitions,
 } from 'vuetify'
@@ -72,6 +73,7 @@ Vue.use(Vuetify, {
     VSwitch,
     VRating,
     VBottomNav,
+    VStepper,
 
     transitions,
   },
