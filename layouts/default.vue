@@ -282,7 +282,17 @@
 
     <v-content>
       <v-container fill-height d-block pa-0>
-        <nuxt />
+        <v-layout justify-center>
+          <v-flex
+            xs12
+            sm12
+            md12
+            lg12
+            xl10
+          >
+            <nuxt />
+          </v-flex>
+        </v-layout>
 
         <v-dialog v-model="geoTrackerDialog" max-width="290">
           <v-card>
