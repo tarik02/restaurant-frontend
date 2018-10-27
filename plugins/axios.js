@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-export default function ({ $axios, store }) {
+export default function ({ $axios, store, app, redirect }) {
   $axios.defaults.paramsSerializer = params => qs.stringify(params, { arrayFormat: 'brackets' })
 
   $axios.onRequest(config => {
@@ -17,5 +17,17 @@ export default function ({ $axios, store }) {
     }
 
     return config
+  })
+
+  $axios.onError(error => {
+    if (
+      error.response &&
+      parseInt(error.response.status) === 401 &&
+      error.response.statusText === 'not-installed'
+    ) {
+      if (app.router.currentRoute.name !== 'install') {
+        app.router.replace({ name: 'install' })
+      }
+    }
   })
 }

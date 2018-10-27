@@ -23,8 +23,8 @@ export const mutations = {
   },
 
   deleteAccount: (state, id) => {
-    if (this.currentId === id) {
-      this.currentId = null
+    if (state.currentId === id) {
+      state.currentId = null
     }
 
     Vue.delete(state.accounts, id)
@@ -90,10 +90,8 @@ export const actions = {
           })
         } catch (e) {
           console.error(e)
-
           if (e.response && parseInt(e.response.status) === 401) {
             commit('deleteAccount', account.data.id)
-            return
           }
 
           return

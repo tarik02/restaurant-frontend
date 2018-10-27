@@ -59,7 +59,7 @@ export default function ({ $axios, store, app }) {
         )))
       }
     } catch (e) {
-      console.error(e)
+      // console.error(e)
     }
   }
   

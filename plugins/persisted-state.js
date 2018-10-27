@@ -6,11 +6,24 @@ export default ({store}) => {
     key: 'accounts',
     paths: [
 			'accounts',
+		],
+	})(store)
+
+	createPersistedState({
+    key: 'cart',
+    paths: [
 			'cart',
+		],
+	})(store)
+
+	createPersistedState({
+    key: 'driver',
+    paths: [
 			'driver',
 		],
 	})(store)
-	
+
+
 	createMutationsSharer({
 		predicate: [
 			'accounts/addAccount',

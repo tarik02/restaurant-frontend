@@ -273,9 +273,9 @@ export default {
     },
   },
 
-  async fetch({ redirect, store }) {
+  async fetch({ redirect, $axios }) {
     try {
-      await store.dispatch('menu/initCourses')
+      await $axios.$get('/courses')
       redirect(301, '/')
     } catch (e) {
       console.log(e)

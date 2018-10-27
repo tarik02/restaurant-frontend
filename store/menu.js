@@ -20,8 +20,11 @@ export const mutations = {
 export const actions = {
   async initCourses({ state, commit }) {
     if (state.courses.length === 0) {
-      const { data } = await this.$axios.$get('/courses')
-      commit('setCourses', data)
+      try {
+        const { data } = await this.$axios.$get('/courses')
+        commit('setCourses', data)
+      } catch (e) {
+      }
     }
   },
 }
