@@ -192,7 +192,7 @@
 
 <script>
 import delay from 'await-delay'
-import interval from 'interval-promise'
+import { interval } from '~/common/interval-promise'
 import { DriverStatus } from '~/common/driver-status'
 import { getCurrentPosition } from '~/common/position-promise'
 import { distanceBetweenTwoPoints } from '~/common/geo-distance'

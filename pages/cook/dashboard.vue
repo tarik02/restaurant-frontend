@@ -68,7 +68,7 @@
 
 <script>
 import delay from 'await-delay'
-import interval from 'interval-promise'
+import { interval } from '~/common/interval-promise'
 import { mapGetters } from 'vuex'
 import _ from 'lodash'
 

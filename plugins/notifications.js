@@ -1,5 +1,5 @@
 import moment from 'moment'
-import interval from 'interval-promise'
+import { interval } from '~/common/interval-promise'
 import AsyncQueue from '~/common/async-queue'
 
 export default function ({ $axios, store, app }) {
@@ -63,7 +63,5 @@ export default function ({ $axios, store, app }) {
     }
   }
   
-  interval(updateNotifications, 1000, {
-    stopOnError: false,
-  })
+  interval(updateNotifications, 1000)
 }
