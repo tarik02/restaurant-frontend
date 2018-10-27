@@ -74,17 +74,24 @@ export const actions = {
 
         const { tokenType, accessToken } = account.auth
 
-        return this.$axios.$get('/user', {
-          headers: {
-            'Authorization': `${tokenType} ${accessToken}`,
-          },
-        })
+        return [account, `${tokenType} ${accessToken}`]
       })
-      .forEach(async response => {
+      .forEach(async ([account, auth]) => {
+        let response
         try {
-          response = await response
+          response = await this.$axios.$get('/user', {
+            headers: {
+              'Authorization': auth,
+            },
+          })
         } catch (e) {
           console.error(e)
+
+          if (e.response && parseInt(e.response.status) === 401) {
+            commit('deleteAccount', account.data.id)
+            return
+          }
+
           return
         }
 
