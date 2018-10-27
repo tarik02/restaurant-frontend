@@ -23,6 +23,10 @@ export const mutations = {
   },
 
   deleteAccount: (state, id) => {
+    if (this.currentId === id) {
+      this.currentId = null
+    }
+
     Vue.delete(state.accounts, id)
   },
 

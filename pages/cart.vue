@@ -1,6 +1,10 @@
 <template>
-  <v-card height="100%" flat style="margin-bottom: 24px;">
+  <v-card height="100%" flat>
     <template v-if="courses.length > 0">
+      <div class="subheading px-3 pt-3 pb-2">
+        <v-icon>credit_card</v-icon>&nbsp;До сплати: {{ price | currency }}        
+      </div>
+      
       <v-container
         fluid
         grid-list-lg
@@ -10,17 +14,19 @@
         </v-layout>
       </v-container>
 
-      <v-footer fixed class="subheading px-2 py-4">
-        <v-icon>credit_card</v-icon>&nbsp;До сплати: {{ price | currency }}
+      <v-btn
+        :to="{ name: 'location' }"
+        color="primary"
+        fab
+        fixed
+        right
+        bottom
+      ><v-icon>arrow_forward</v-icon></v-btn>
 
-        <v-spacer />
-
-        <v-btn
-          :to="{ name: 'location' }"
-          dark
-          color="primary"
-        >Замовити&nbsp;<v-icon>arrow_forward</v-icon></v-btn>
-      </v-footer>
+      <v-btn
+        fab
+        style="visibility: hidden;"
+      />
     </template>
     <v-layout v-else fill-height>
       <v-layout row wrap align-center>
