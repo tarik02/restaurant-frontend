@@ -22,7 +22,14 @@
 
         <v-text-field
           v-model="phone"
-          label="Номер телефону"
+          :rules="[
+            v => !v || (!!v.toString().match(PHONE_REGEX) || 'Неправильний формат номера'),
+          ]"
+          :counter="18"
+          label="Телефон"
+          mask="+38 (0##) ###-####"
+          return-masked-value
+          type="tel"
           required
         />
 
@@ -76,8 +83,12 @@
 </template>
 
 <script>
+import { PHONE_REGEX } from '~/common/consts'
+
 export default {
   data: () => ({
+    PHONE_REGEX,
+
     valid: true,
 
     username: '',
@@ -113,7 +124,7 @@ export default {
         await this.$store.dispatch('accounts/register', {
           username: this.username,
           email: this.email,
-          phone: this.phone,
+          phone: (this.phone || '').toString().replace(/[ \-\(\)]/g, ''),
           password: this.password,
         })
         await this.$store.dispatch('accounts/login', {

@@ -169,8 +169,12 @@
                   v-model="operator.phone"
                   :rules="[
                     v => !!v || 'Це поле обов\'язкове для заповнення',
+                    v => !!v.toString().match(PHONE_REGEX) || 'Неправильний формат номера',
                   ]"
+                  :counter="18"
                   label="Номер телефону"
+                  mask="+38 (0##) ###-####"
+                  return-masked-value
                   type="tel"
                   required
                 />
@@ -225,10 +229,14 @@
 </template>
 
 <script>
+import { PHONE_REGEX } from '~/common/consts'
+
 export default {
   layout: 'menuless',
 
   data: () => ({
+    PHONE_REGEX,
+
     connectionTypes: [
       { key: 'mysql', name: 'MySQL' },
     ],
@@ -256,7 +264,7 @@ export default {
     operator: {
       username: '',
       email: '',
-      phone: '',
+      phone: '+380',
       password: '',
     },
 
@@ -295,7 +303,10 @@ export default {
       const request = {
         site: this.site,
         db: this.db,
-        operator: this.operator,
+        operator: {
+          ...this.operator,
+          phone: (this.operator.phone || '').replace(/[ \-\(\)]/g, ''),
+        },
       }
 
       try {

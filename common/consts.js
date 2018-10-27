@@ -12,3 +12,5 @@ export const DAYS_OF_WEEK = [
 	'Субота',
 	'Неділя',
 ]
+
+export const PHONE_REGEX = /^\+38 \(0\d\d\) \d\d\d-\d\d\d\d$/im

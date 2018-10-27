@@ -8,11 +8,28 @@
         <course v-for="(course) in courses" :course="course" :key="course.id" />
       </v-layout>
     </v-container>
+
+    <v-fab-transition>
+      <v-btn
+        v-if="!cartEmpty"
+        :to="{ name: 'cart' }"
+        color="primary"
+        fab
+        fixed
+        right
+        bottom
+      ><v-icon>shopping_cart</v-icon></v-btn>
+    </v-fab-transition>
+
+    <v-btn
+      fab
+      style="visibility: hidden;"
+    />
   </v-card>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Course from '~/components/course'
 
 export default {
@@ -25,9 +42,9 @@ export default {
       courses: state => state.menu.courses,
     }),
 
-    cartEmpty() {
-      return this.courses.every(course => course.cartCount === 0)
-    },
+    ...mapGetters({
+      cartEmpty: 'cart/empty',
+    }),
   },
 
   async fetch ({ store, params }) {

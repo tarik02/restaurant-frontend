@@ -5,39 +5,46 @@ export default ({store}) => {
   createPersistedState({
     key: 'accounts',
     paths: [
-			'accounts',
-		],
-	})(store)
+      'accounts',
+    ],
+  })(store)
 
-	createPersistedState({
+  createPersistedState({
     key: 'cart',
     paths: [
-			'cart',
-		],
-	})(store)
+      'cart',
+    ],
+  })(store)
 
-	createPersistedState({
+  createPersistedState({
     key: 'driver',
     paths: [
-			'driver',
-		],
-	})(store)
+      'driver',
+    ],
+  })(store)
+
+  createPersistedState({
+    key: 'order',
+    paths: [
+      'order',
+    ],
+  })(store)
 
 
-	createMutationsSharer({
-		predicate: [
-			'accounts/addAccount',
-			'accounts/setCurrent',
+  createMutationsSharer({
+    predicate: [
+      'accounts/addAccount',
+      'accounts/setCurrent',
 
-			'cart/add',
-			'cart/remove',
-			'cart/clear',
+      'cart/add',
+      'cart/remove',
+      'cart/clear',
 
-			'driver/enablingTracker',
-			'driver/enableTracker',
-			'driver/disableTracker',
-		],
-	})(store)
+      'driver/enablingTracker',
+      'driver/enableTracker',
+      'driver/disableTracker',
+    ],
+  })(store)
 
-	store.dispatch('accounts/init')
+  store.dispatch('accounts/init')
 }

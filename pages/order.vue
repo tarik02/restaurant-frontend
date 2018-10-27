@@ -14,9 +14,12 @@
         <v-text-field
           v-model="phone"
           :rules="phoneRules"
-          :counter="12"
+          :counter="18"
           prepend-icon="local_phone"
           label="Телефон"
+          mask="+38 (0##) ###-####"
+          return-masked-value
+          type="tel"
           required
         />
         
@@ -62,8 +65,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import nullifyString from '~/common/nullify-string'
-
-const PHONE_REGEX = /^\+?[\d ]+$/im
+import { PHONE_REGEX } from '~/common/consts'
 
 export default {
   data: () => ({
@@ -119,12 +121,16 @@ export default {
         }
 
         if (nullifyString(
-          this.phone && this.phone.replace(/^\+?3?8?0?/, '')
+          this.phone && this.phone.replace(/^\+?(380)?[ -\(\)]*$/, '')
         ) === null && account.data.phone) {
           this.phone = account.data.phone
         }
       },
     },
+  },
+
+  async fetch ({ store, params }) {
+    await store.dispatch('menu/initCourses')
   },
 
   mounted() {
@@ -139,7 +145,7 @@ export default {
 
       this.$store.commit('order/setInfo', {
         name: this.name,
-        phone: this.phone.toString(),
+        phone: this.phone.toString().replace(/[ \-\(\)]/g, ''),
         notes: this.targetNotes,
         price: this.price,
       })

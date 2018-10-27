@@ -272,11 +272,20 @@
       <v-spacer />
 
       <v-btn :to="{ name: 'cart' }" icon>
-        <v-fade-transition>
-          <div v-show="cartSize" class="cart-button-counter">{{ cartSize }}</div>
-        </v-fade-transition>
+        <v-badge
+          v-model="cartSize"
+          top
+          right
+          overlap
+          color="orange"
+        >
+          <span
+            v-show="cartSize"
+            slot="badge"
+          >{{ cartSize }}</span>
 
-        <v-icon>shopping_cart</v-icon>
+          <v-icon>shopping_cart</v-icon>
+        </v-badge>
       </v-btn>
     </v-toolbar>
 
@@ -407,21 +416,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.cart-button-counter
-  font-size 11px
-  color white
-  height 20px
-  width 20px
-  border-radius 100%
-  line-height 1.65
-  text-align center
-  position absolute
-  background-color orange
-  padding 2px
-  top -8px
-  right 1px
-  pointer-events none
-
 .lightbox
   box-shadow 0 0 20px inset rgba(0, 0, 0, 0.2)
   background-image linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px)

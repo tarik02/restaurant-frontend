@@ -15,6 +15,8 @@ export const getters = {
   size: ({ cart }) => _(cart).values().sum(),
 
   data: ({ cart }) => cart,
+
+  empty: (state, { size }) => size === 0,
 }
 
 export const mutations = {

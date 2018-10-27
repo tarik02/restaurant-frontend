@@ -34,6 +34,7 @@ import {
   VRating,
   VBottomNav,
   VStepper,
+  VBadge,
 
   transitions,
 } from 'vuetify'
@@ -74,6 +75,7 @@ Vue.use(Vuetify, {
     VRating,
     VBottomNav,
     VStepper,
+    VBadge,
 
     transitions,
   },

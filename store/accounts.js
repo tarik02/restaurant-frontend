@@ -80,7 +80,12 @@ export const actions = {
 
         return [account, `${tokenType} ${accessToken}`]
       })
-      .forEach(async ([account, auth]) => {
+      .forEach(async data => {
+        if (data === null) {
+          return
+        }
+
+        const [account, auth] = data
         let response
         try {
           response = await this.$axios.$get('/user', {
