@@ -276,7 +276,7 @@ export default {
   async fetch({ redirect, store }) {
     try {
       await store.dispatch('menu/initCourses')
-      redirect(301, '/index')
+      redirect(301, '/')
     } catch (e) {
       console.log(e)
     }
