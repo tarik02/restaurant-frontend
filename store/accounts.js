@@ -22,6 +22,10 @@ export const mutations = {
     Vue.set(state.accounts, account.data.id, account)
   },
 
+  deleteAccount: (state, id) => {
+    Vue.delete(state.accounts, id)
+  },
+
   setAccountData: (state, data) => {
     const {id} = data
 
@@ -48,6 +52,11 @@ export const actions = {
   async init({ commit, state }) {
     _(state.accounts)
       .map((account, id) => {
+        if (!account.auth) {
+          commit('deleteAccount', id)
+          return null
+        }
+
         if (account.lastDataUpdate) {
           const diff = moment.duration(
             moment().diff(moment.unix(account.lastDataUpdate))
@@ -63,7 +72,7 @@ export const actions = {
 
         commit('setUpdating', account.data.id)
 
-        const {tokenType, accessToken} = account.auth
+        const { tokenType, accessToken } = account.auth
 
         return this.$axios.$get('/user', {
           headers: {
@@ -71,8 +80,13 @@ export const actions = {
           },
         })
       })
-      .forEach(async (response, id) => {
-        response = await response
+      .forEach(async response => {
+        try {
+          response = await response
+        } catch (e) {
+          console.error(e)
+          return
+        }
 
         if (response === null) {
           return
@@ -135,6 +149,10 @@ export const actions = {
         refreshToken,
         expiresAt,
       },
+    }
+
+    if (!account.data) {
+      return
     }
 
     commit('addAccount', account)
