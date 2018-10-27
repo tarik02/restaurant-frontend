@@ -308,7 +308,7 @@ export default {
             password: this.operator.password,
           })
 
-          this.$router.push({ name: 'index' })
+          this.$router.push({ name: 'menu' })
 
           this.$toast.success('Інсталяція виконана успішно!')
         } else {
@@ -316,7 +316,7 @@ export default {
           case 'installed':
             this.$toast.show('Інсталяція уже була виконана')
 
-            this.$router.push({ name: 'index' })
+            this.$router.push({ name: 'menu' })
             break
           case 'wrong-db-connection':
             this.$toast.error('Невідомий тип БД')
