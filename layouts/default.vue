@@ -354,8 +354,9 @@ export default {
   }),
 
   head() {
+    const state = this.$store.state
     return {
-      title: this.$store.state.title.common,
+      title: _.filter([state.title.common, state.appName]).join(' | '),
     }
   },
 

@@ -110,6 +110,7 @@ module.exports = {
     '~/plugins/resources.js',
     '~/plugins/morris.js',
     '~/plugins/lodash.js',
+    '~/plugins/info.js',
   ],
 
   css: [
@@ -153,6 +154,7 @@ module.exports = {
       '~/plugins/resources.js',
       '~/plugins/morris.js',
       '~/plugins/lodash.js',
+      '~/plugins/info.js',
     ],
 
     extractCSS: true,

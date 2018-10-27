@@ -1,4 +1,6 @@
 export const state = () => ({
+  appName: null,
+
   title: {
     common: '',
     short: '',
@@ -9,6 +11,10 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setAppName: (state, name) => {
+    state.appName = name
+  },
+
   setTitle: (state, title) => {
     if (typeof title === 'string') {
       state.title = {
