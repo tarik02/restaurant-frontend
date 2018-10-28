@@ -30,19 +30,33 @@ export default ({store}) => {
     ],
   })(store)
 
+  createPersistedState({
+    key: 'orders',
+    paths: [
+      'orders',
+    ],
+  })(store)
+
 
   createMutationsSharer({
     predicate: [
       'accounts/addAccount',
+      'accounts/deleteeAccount',
+      'accounts/setAccountData',
+      'accounts/setUpdating',
       'accounts/setCurrent',
 
       'cart/add',
       'cart/remove',
       'cart/clear',
 
-      'driver/enablingTracker',
+      'driver/enableWork',
+      'driver/disableWork',
       'driver/enableTracker',
       'driver/disableTracker',
+
+      'orders/add',
+      'orders/remove',
     ],
   })(store)
 

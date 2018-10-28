@@ -145,6 +145,26 @@
             <v-list-tile-content><v-list-tile-title>Корзина</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
 
+          <v-list-group
+            :disabled="ordersEmpty"
+            :value="!ordersEmpty"
+            prepend-icon="view_list"
+          >
+            <v-list-tile slot="activator">
+              <v-list-tile-title>Замовлення</v-list-tile-title>
+            </v-list-tile>
+
+            <v-list-tile
+              v-for="(token, id) in orders"
+              :key="id"
+              :to="{ name: 'watch-id-token', params: { id, token } }"
+              nuxt
+            >
+              <v-list-tile-action><v-icon>bookmark_border</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Замовлення №{{ id }}</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>            
+          </v-list-group>
+
           <v-list-tile :to="{ name: 'about' }" nuxt>
             <v-list-tile-action><v-icon>account_box</v-icon></v-list-tile-action>
             <v-list-tile-content><v-list-tile-title>Про нас</v-list-tile-title></v-list-tile-content>
@@ -371,6 +391,8 @@ export default {
 
       driverWorkDialog: state => state.driver.workDialog,
       driverWorkSwitch: state => state.driver.workEnabled,
+
+      orders: state => state.orders.orders,
     }),
 
     ...mapGetters({
@@ -378,6 +400,9 @@ export default {
       secondaryAccounts: 'accounts/secondaries',
 
       cartSize: 'cart/size',
+
+      ordersEmpty: 'orders/empty',
+      ordersCount: 'orders/count',
     }),
 
     accessToken() {

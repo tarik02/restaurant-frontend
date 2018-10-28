@@ -235,6 +235,7 @@ export default {
 
           if (newInfo.status === OrderStatus.DONE) {
             this.rateDialog = newInfo.needsReview
+            this.$store.commit('orders/remove', this.id)
           }
         }
 

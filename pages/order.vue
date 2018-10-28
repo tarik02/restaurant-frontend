@@ -164,6 +164,7 @@ export default {
           },
         })
 
+        this.$store.commit('orders/add', { id: result.order, token: result.token })
         this.$store.commit('cart/clear')
         this.$toast.success('Замовлення відправлено на опрацювання')
       } else if (result.reason === 'change_count') {
