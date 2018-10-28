@@ -7628,11 +7628,6 @@ vue-eslint-parser@^2.0.2, vue-eslint-parser@^2.0.3:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
-vue-google-autocomplete@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-google-autocomplete/-/vue-google-autocomplete-1.1.0.tgz#74b700da8d905e2c3dd0bc219b3d740e99277b2e"
-  integrity sha1-dLcA2o2QXiw90Lwhmz10Dpkney4=
-
 vue-googlemaps@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/vue-googlemaps/-/vue-googlemaps-0.1.1.tgz#2369dbec60b11cfde8ba2d479406b71321720f22"

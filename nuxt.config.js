@@ -91,7 +91,6 @@ module.exports = {
     '~/plugins/vuetify.js',
 
     '~/plugins/google-maps.js',
-    '~/plugins/google-places-autocomplete.js',
 
     '~/plugins/vue-moment.js',
     '~/plugins/order-status.js',
@@ -135,7 +134,6 @@ module.exports = {
       '~/plugins/vuetify.js',
   
       '~/plugins/google-maps.js',
-      '~/plugins/google-places-autocomplete.js',
   
       '~/plugins/vue-moment.js',
       '~/plugins/order-status.js',
