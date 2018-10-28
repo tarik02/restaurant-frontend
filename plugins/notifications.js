@@ -5,16 +5,14 @@ import AsyncQueue from '~/common/async-queue'
 export default function ({ $axios, store, app }) {
   const notificationHandlers = {
     'storage-batches-old': batches => {
-      app.$toast.show(`Закінчуються терміни придатності ${batches.length} товарів`, {
+      app.$toast.show(`Закінчуються терміни придатності ${batches.length} товара (ів)`, {
         position: 'bottom-center',
         duration: Infinity,
         action: {
           text: 'Переглянути',
-          push: {
-            name: 'storage-id',
-            params: {
-              id: 'old',
-            },
+          onClick : (e, toastObject) => {
+            toastObject.goAway(0)
+            app.router.push({ name: 'storage-id', params: { id: 'old' } })
           },
         },
       })
