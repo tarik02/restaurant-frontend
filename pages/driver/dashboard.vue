@@ -319,6 +319,7 @@ export default {
         case DriverStatus.OFF:
           if (this.$store.state.driver.workEnabled) {
             this.$store.commit('driver/disableWork')
+            this.$driverTracker.stop()
           }
           break
         case DriverStatus.DRIVING:
