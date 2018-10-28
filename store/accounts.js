@@ -54,6 +54,10 @@ export const mutations = {
 
 export const actions = {
   async init({ commit, state }) {
+    if (state.currentId !== null && !state.accounts[state.currentId]) {
+      commit('setCurrent', null)
+    }
+
     _(state.accounts)
       .map((account, id) => {
         if (!account.auth) {
