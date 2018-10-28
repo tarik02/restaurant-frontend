@@ -174,18 +174,18 @@
               <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
 
-            <v-list-tile @click="toggleGeoSwitch()">
-              <v-list-tile-action><v-icon>not_listed_location</v-icon></v-list-tile-action>
+            <v-list-tile @click="toggleDriverWork()">
+              <v-list-tile-action><v-icon>work</v-icon></v-list-tile-action>
               <v-layout
                 tag="v-list-tile-content"
                 row
                 style="overflow: visible; width: 100%; align-items: center;"
               >
-                <v-list-tile-title style="flex-grow: 1;">Гео-трекер</v-list-tile-title>
+                <v-list-tile-title style="flex-grow: 1;">На роботі</v-list-tile-title>
                 <v-switch
-                  v-model="geoTrackerSwitch"
+                  v-model="driverWorkSwitch"
                   style="flex-grow: 0; margin-bottom: -6px;"
-                  @click.stop="toggleGeoSwitch()"
+                  @click.stop="toggleDriverWork()"
                 />
               </v-layout>
             </v-list-tile>
@@ -303,12 +303,17 @@
           </v-flex>
         </v-layout>
 
-        <v-dialog v-model="geoTrackerDialog" max-width="290">
+        <v-dialog
+          :value="driverWorkDialog"
+          max-width="360"
+          @input="$store.commit($event ? 'driver/showWorkDialog' : 'driver/hideWorkDialog')"
+        >
           <v-card>
-            <v-card-title class="headline">Трекер</v-card-title>
+            <v-card-title class="headline">Водій</v-card-title>
 
             <v-card-text>
-              Увімкнути трекер, який буде відправляти ваше місцезнаходження для розрахування приблизного часу прибуття. Клієнт буде бачити ваше місцезнаходження.
+              <!-- Увімкнути трекер, який буде відправляти ваше місцезнаходження для розрахування приблизного часу прибуття. Клієнт буде бачити ваше місцезнаходження. -->
+              Якщо ви увімкнете цей перемикач, це означає, що ви готові приймати замовлення. Ваше місцезнаходження буде відправлятися на сервер і клієнт, якого ви обслуговуєте, буде бачити ваше поточне місцезнаходження.
             </v-card-text>
 
             <v-card-actions>
@@ -316,16 +321,17 @@
 
               <v-btn
                 color="green darken-1"
-                flat="flat"
-                @click="geoTrackerDialog = false"
+                flat
+                @click="$store.commit('driver/hideWorkDialog')"
               >
                 Відмінити
               </v-btn>
 
               <v-btn
+                v-if="accessToken"
                 color="green darken-1"
-                flat="flat"
-                @click="enableTracker"
+                flat
+                @click="enableDriverWork"
               >
                 Увімкнути
               </v-btn>
@@ -349,8 +355,6 @@ export default {
   data: () => ({
     drawer: null,
     accountMenu: false,
-
-    geoTrackerDialog: false,
   }),
 
   head() {
@@ -365,7 +369,8 @@ export default {
       shortTitle: state => state.title.short,
       currentPage: state => state.currentPage,
 
-      geoTrackerSwitch: state => state.driver.trackerEnabled,
+      driverWorkDialog: state => state.driver.workDialog,
+      driverWorkSwitch: state => state.driver.workEnabled,
     }),
 
     ...mapGetters({
@@ -374,6 +379,10 @@ export default {
 
       cartSize: 'cart/size',
     }),
+
+    accessToken() {
+      return this.account && this.account.auth.accessToken
+    },
   },
 
   methods: {
@@ -392,24 +401,28 @@ export default {
       this.accountMenu = !this.accountMenu
     },
 
-    toggleGeoSwitch() {
-      const newSwitch = !this.geoTrackerSwitch
+    toggleDriverWork() {
+      const newSwitch = !this.driverWorkSwitch
 
       if (newSwitch) {
-        this.drawer = false
-        this.geoTrackerDialog = true
+        // this.drawer = false
+        this.$store.commit('driver/showWorkDialog')
       } else {
-        this.disableTracker()
+        this.disableDriverWork()
       }
     },
 
-    enableTracker() {
-      this.geoTrackerDialog = false
+    async enableDriverWork() {
+      this.$store.commit('driver/hideWorkDialog')
 
-      this.$driverTracker.start()
+      await this.$axios.post('/driver/on')
+      this.$store.commit('driver/enableWork')
+
+      this.$router.push(`/driver/tracker/${this.accessToken}`)
     },
 
-    disableTracker() {
+    disableDriverWork() {
+      this.$store.commit('driver/disableWork')
       this.$driverTracker.stop()
     },
   },

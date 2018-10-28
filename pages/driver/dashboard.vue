@@ -13,6 +13,19 @@
       </v-container>
     </template>
 
+    <template v-else-if="status === 'off'">
+      <v-container
+        fill-height
+        align-center
+        justify-center
+      >
+        <v-btn
+          color="primary"
+          @click="$store.commit('driver/showWorkDialog')"
+        >Почати роботу</v-btn>
+      </v-container>
+    </template>
+
     <template v-else-if="status === 'ready'">
       <v-container
         fluid
@@ -187,6 +200,28 @@
         </v-bottom-nav>
       </v-layout>
     </template>
+
+    <template v-else-if="status === 'idle'">
+      <v-container
+        fill-height
+        align-center
+        justify-center
+        style="flex-direction: column;"
+      >
+        <div>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          />
+        </div>
+
+        <div style="height: 10px;" />
+
+        <div>
+          Очікуйте замовлення
+        </div>
+      </v-container>
+    </template>
   </v-card>
 </template>
 
@@ -278,12 +313,26 @@ export default {
       })
 
       switch (response.status) {
-        case DriverStatus.READY:
-          this.items = response.orders
+        // case DriverStatus.READY:
+        //   this.items = response.orders
+        //   break
+        case DriverStatus.OFF:
+          if (this.$store.state.driver.workEnabled) {
+            this.$store.commit('driver/disableWork')
+          }
           break
         case DriverStatus.DRIVING:
+          if (!this.$store.state.driver.workEnabled) {
+            this.$store.commit('driver/enableWork')
+          }
+
           this.driver = response.driver
           this.order = response.order
+          break
+        case DriverStatus.IDLE:
+          if (!this.$store.state.driver.workEnabled) {
+            this.$store.commit('driver/enableWork')
+          }
           break
       }
 

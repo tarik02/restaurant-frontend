@@ -1,21 +1,32 @@
 export const state = () => ({
-  trackerEnabling: false,
+  workDialog: false,
+
+  workEnabled: false,
   trackerEnabled: false,
 })
 
 export const mutations = {
-  enablingTracker: state => {
-    state.trackerEnabling = true
-    state.trackerEnabled = false
+  showWorkDialog: state => {
+    state.workDialog = true
+  },
+
+  hideWorkDialog: state => {
+    state.workDialog = false
+  },
+
+  enableWork: state => {
+    state.workEnabled = true
+  },
+
+  disableWork: state => {
+    state.workEnabled = false
   },
 
   enableTracker: state => {
-    state.trackerEnabling = false
     state.trackerEnabled = true
   },
 
   disableTracker: state => {
-    state.trackerEnabling = false
     state.trackerEnabled = false
   },
 }

@@ -32,7 +32,7 @@ export default function ({ $axios, store, app }, inject) {
       this.stop(false)
       _enabled = true
 
-      store.commit('driver/enablingTracker')
+      store.commit('driver/enableTracker')
       if (notification) {
         app.$toast.show('Увімкнення трекера...')
       }
@@ -41,7 +41,6 @@ export default function ({ $axios, store, app }, inject) {
       watchId = navigator.geolocation.watchPosition(
         ({ coords: { latitude, longitude, accuracy } }) => {
           if (first) {
-            store.commit('driver/enableTracker')
             app.$toast.success('Трекер увімкнений')
             first = false
           }
