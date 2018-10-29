@@ -277,6 +277,10 @@
               <v-list-tile-action><v-icon>access_time</v-icon></v-list-tile-action>
               <v-list-tile-content><v-list-tile-title>Терміни придатності</v-list-tile-title></v-list-tile-content>
             </v-list-tile>
+            <v-list-tile :to="{ name: 'stats-orders' }">
+              <v-list-tile-action><v-icon>all_inbox</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title>Замовлення</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
           </template>
         </template>
       </v-list>
