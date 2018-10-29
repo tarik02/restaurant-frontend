@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" flat style="margin-bottom: 24px;">
+  <v-card height="100%" flat>
     <v-card-title>
       <v-layout row style="justify-content: stretch;">
         <date-picker
