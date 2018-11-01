@@ -50,6 +50,13 @@ export const mutations = {
   setCurrent: (state, id) => {
     state.currentId = id
   },
+
+  reset: state => {
+    state.currentId = null
+    for (const key of _.keys(state.accounts)) {
+      Vue.delete(state.accounts, key)
+    }
+  },
 }
 
 export const actions = {

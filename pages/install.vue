@@ -292,6 +292,7 @@ export default {
 
   mounted() {
     this.$store.commit('setTitle', 'Інсталяція')
+    this.$store.commit('accounts/reset')
   },
 
   methods: {
@@ -300,6 +301,8 @@ export default {
     },
     
     async done() {
+      this.$store.commit('accounts/reset')
+      
       const request = {
         site: this.site,
         db: this.db,
