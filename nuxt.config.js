@@ -28,7 +28,6 @@ module.exports = {
     ],
 
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
     ],
   },
@@ -83,6 +82,9 @@ module.exports = {
             },
           },
         ],
+      },
+
+      icon: {
       },
     }],
   ],
@@ -190,7 +192,7 @@ module.exports = {
         query: {
           limit: 1000, // 1 KO
           name: 'pdfs/[name].[hash:7].[ext]',
-        }
+        },
       })
     },
   },
